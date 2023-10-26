@@ -29,21 +29,26 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+int index(QListWidgetItem* item) {
+    std::string name = item->text().toStdString();
+    int id = 0;
+    for (int i = 0; i < (int)name.size(); ++i) {
+        if (name[i] == '.') break;
+        id = 10 * id + name[i] - '0';
+    }
+    return --id;
+}
+
 void MainWindow::on_delete_2_clicked()
 {
     ui->listWidget->removeItemWidget(ui->listWidget->currentItem());
     QListWidgetItem* selectedItem = ui->listWidget->currentItem();
     if (selectedItem) {
-        std::string name = selectedItem->text().toStdString();
-        int id = 0;
-        for (int i = 0; i < (int)name.size(); ++i) {
-            if (name[i] == '.') break;
-            id = 10 * id + name[i] - '0';
-        }
-        delete global::products->at(id - 1);
-        global::products->erase(global::products->begin() + id - 1);
+        int id = index(selectedItem);
+        delete global::products->at(id);
+        global::products->erase(global::products->begin() + id);
         delete selectedItem;
-        for (int i = 0; i < global::products->size(); ++i) {
+        for (int i = 0; i < (int)global::products->size(); ++i) {
             global::products->at(i)->setId(i);
             auto item = ui->listWidget->item(i);
             QString newText = QString::fromStdString(std::to_string(i + 1)) + ". " + QString::fromStdString(global::products->at(i)->getName());
@@ -60,6 +65,8 @@ void MainWindow::on_delete_3_clicked()
         delete selectedItem;
     }
 }
+
+
 
 Product* getProduct(QWidget* parent) {
     Product* p = new Product;
@@ -83,16 +90,12 @@ void MainWindow::on_edit_clicked()
 {
     QListWidgetItem* selectedItem = ui->listWidget->currentItem();
     if (selectedItem) {
-        std::string name = selectedItem->text().toStdString();
-        int id = 0;
-        for (int i = 0; i < (int)name.size(); ++i) {
-            if (name[i] == '.') break;
-            id = 10 * id + name[i] - '0';
-        }
+        int id = index(selectedItem);
         Product* newProduct = getProduct(this);
-        delete global::products->at(id - 1);
-        global::products->at(id - 1) = newProduct;
-        QString newText = QString::fromStdString(std::to_string(id)) + ". " + QString::fromStdString(newProduct->getName());
+        newProduct->setId(id);
+        delete global::products->at(id);
+        global::products->at(id) = newProduct;
+        QString newText = QString::fromStdString(std::to_string(id + 1)) + ". " + QString::fromStdString(newProduct->getName());
         selectedItem->setText(newText);
     }
 }
@@ -127,13 +130,7 @@ void MainWindow::on_add_2_clicked()
 
 void MainWindow::show_details(QListWidgetItem* item)
 {
-    std::string name = item->text().toStdString();
-    int id = 0;
-    for (int i = 0; i < (int)name.size(); ++i) {
-        if (name[i] == '.') break;
-        id = 10 * id + name[i] - '0';
-    }
-    id--;
+    int id = index(item);
     Product* p = global::products->at(id);
     QString itemText =
               "Наименование: " + QString::fromStdString(p->getName())
