@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->listWidget, &QListWidget::itemDoubleClicked, this, &MainWindow::show_details);
 
-    ui->spinBox->setMinimum(1);
+    ui->spinBox->setMinimum(10);
     ui->spinBox->setMaximum(30);
 }
 
