@@ -10,5 +10,5 @@
 #include <exception>
 #include "Classes.h"
 
-std::mt19937 rnd(std::chrono::high_resolution_clock::now().time_since_epoch().count());
+static std::mt19937 rnd(std::chrono::high_resolution_clock::now().time_since_epoch().count());
 #endif // INCLUDES_H
