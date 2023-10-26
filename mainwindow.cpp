@@ -59,7 +59,7 @@ void MainWindow::show_details(QListWidgetItem* item)
     QDialog* detailsDialog = new QDialog(this);
     detailsDialog->setWindowTitle("Характеристики элемента");
 
-    QLabel* detailsLabel = new QLabel(itemText);//вместо itemText нужно элемент от продукта брать
+    QLabel* detailsLabel = new QLabel(itemText);//вместо itemText нужно поля продукта брать, а вообще похуй
 
     QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(detailsLabel);
