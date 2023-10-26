@@ -9,6 +9,8 @@
 #include <QWidget>
 #include <QInputDialog>
 #include <QLineEdit>
+#include <QMessageBox>
+#include <QListWidgetItem>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,7 +25,7 @@ public:
     ~MainWindow();
 
 public slots:
-    void delete_item (QHBoxLayout*);
+    void show_details(QListWidgetItem* item);
 
 private slots:
     void on_delete_2_clicked();
@@ -31,7 +33,6 @@ private slots:
     void on_edit_clicked();
 
     void on_add_clicked();
-
 private:
     Ui::MainWindow *ui;
 };

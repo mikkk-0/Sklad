@@ -7,18 +7,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    ui->listWidget->addItem("Цена: 1, Номер: 1");
-    ui->listWidget->addItem("Цена: 1, Номер: 2");
-    ui->listWidget->addItem("Цена: 1, Номер: 3");
-    ui->listWidget->addItem("Цена: 1, Номер: 4");
-}
+    ui->listWidget->addItem("Номер: 1");
+    ui->listWidget->addItem("Номер: 2");
+    ui->listWidget->addItem("Номер: 3");
+    ui->listWidget->addItem("Номер: 4");
 
-void MainWindow::delete_item(QHBoxLayout* layout_h){
-    QLayoutItem *child;
-    while ((child = layout_h->takeAt(0)) != nullptr) {
-        delete child->widget(); // delete the widget
-        delete child;   // delete the layout item
-    }
+    connect(ui->listWidget, &QListWidget::itemClicked, this, &MainWindow::show_details);
 }
 
 MainWindow::~MainWindow()
@@ -55,4 +49,20 @@ void MainWindow::on_add_clicked()
     }
 }
 
+void MainWindow::show_details(QListWidgetItem* item)
+{
+    QString itemText = item->text();
+
+    QDialog* detailsDialog = new QDialog(this);
+    detailsDialog->setWindowTitle("Характеристики элемента");
+
+    QLabel* detailsLabel = new QLabel(itemText);
+
+    QVBoxLayout* layout = new QVBoxLayout;
+    layout->addWidget(detailsLabel);
+
+    detailsDialog->setLayout(layout);
+
+    detailsDialog->exec();
+}
 
