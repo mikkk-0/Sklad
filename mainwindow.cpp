@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->listWidget->addItem("Номер: 3");
     ui->listWidget->addItem("Номер: 4");
 
-    connect(ui->listWidget, &QListWidget::itemClicked, this, &MainWindow::show_details);
+    connect(ui->listWidget, &QListWidget::itemDoubleClicked, this, &MainWindow::show_details);
 }
 
 MainWindow::~MainWindow()
@@ -56,7 +56,7 @@ void MainWindow::show_details(QListWidgetItem* item)
     QDialog* detailsDialog = new QDialog(this);
     detailsDialog->setWindowTitle("Характеристики элемента");
 
-    QLabel* detailsLabel = new QLabel(itemText);
+    QLabel* detailsLabel = new QLabel(itemText);//вместо itemText нужно элемент от продукта брать
 
     QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(detailsLabel);
