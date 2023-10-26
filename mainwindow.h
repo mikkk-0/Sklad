@@ -29,10 +29,13 @@ public slots:
 
 private slots:
     void on_delete_2_clicked();
+    void on_delete_3_clicked();
 
     void on_edit_clicked();
+    void on_edit_2_clicked();
 
     void on_add_clicked();
+    void on_add_2_clicked();
 private:
     Ui::MainWindow *ui;
 };
