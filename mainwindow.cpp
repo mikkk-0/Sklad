@@ -40,7 +40,9 @@ void MainWindow::on_edit_clicked()
 {
     QListWidgetItem* selectedItem = ui->listWidget->currentItem();
     if (selectedItem) {
-        selectedItem->setText("");
+        QString newText = QInputDialog::getText(this, "Изменение элемента", "Введите новый текст:", QLineEdit::Normal, selectedItem->text());
+        if (!newText.isEmpty()) {
+            selectedItem->setText(newText);
+        }
     }
 }
-
