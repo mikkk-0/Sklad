@@ -6,8 +6,8 @@ class Product
 {
 public:
     Product();
-    double getPrice() const;
-    void setPrice(double newPrice);
+    int getPrice() const;
+    void setPrice(int newPrice);
     int getPercent() const;
     void setPercent(int newPercent);
     int getTime_limit() const;

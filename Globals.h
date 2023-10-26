@@ -1,9 +1,10 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 #include "storage.h"
-
-Storage* st;
-std::vector<Product*> products;
-int CURRENT_DAY;
-const int delay = rnd() % 3 + 3;
+namespace global {
+    static Storage* st;
+    static std::vector<Product*>* products;
+    static int CURRENT_DAY;
+    static const int delay = rnd() % 3 + 3;
+}
 #endif // GLOBALS_H

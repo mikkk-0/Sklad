@@ -4,12 +4,12 @@ Product::Product() {
 
 }
 
-double Product::getPrice() const
+int Product::getPrice() const
 {
     return price;
 }
 
-void Product::setPrice(double newPrice)
+void Product::setPrice(int newPrice)
 {
     price = newPrice;
 }

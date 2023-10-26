@@ -37,9 +37,9 @@ void Shipment::setCount_of_product(int newCount_of_product)
 
 Shipment* generateShipment(int id, int weight) {
     Shipment* shpmnt = new Shipment;
-    id %= products.size();
-    shpmnt->setProduct(products[id]);
+    id %= global::products->size();
+    shpmnt->setProduct(global::products->at(id));
     shpmnt->setCount_of_product(weight / shpmnt->getProduct()->getWeight_per_pack());
-    shpmnt->setDate(CURRENT_DAY + delay);
+    shpmnt->setDate(global::CURRENT_DAY + global::delay);
     return shpmnt;
 }
