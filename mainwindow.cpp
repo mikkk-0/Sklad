@@ -13,6 +13,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->listWidget->addItem("Номер: 4");
 
     connect(ui->listWidget, &QListWidget::itemDoubleClicked, this, &MainWindow::show_details);
+
+    ui->spinBox->setMinimum(1);
+    ui->spinBox->setMaximum(30);
 }
 
 MainWindow::~MainWindow()
