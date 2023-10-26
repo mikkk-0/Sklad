@@ -30,6 +30,8 @@ private slots:
 
     void on_edit_clicked();
 
+    void on_add_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

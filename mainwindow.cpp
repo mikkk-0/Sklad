@@ -46,3 +46,13 @@ void MainWindow::on_edit_clicked()
         }
     }
 }
+
+void MainWindow::on_add_clicked()
+{
+    QString newText = QInputDialog::getText(this, "Добавление элемента", "Введите новый текст:");
+    if (!newText.isEmpty()) {
+        ui->listWidget->addItem(newText);
+    }
+}
+
+
