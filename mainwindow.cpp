@@ -67,5 +67,6 @@ void MainWindow::show_details(QListWidgetItem* item)
     detailsDialog->setLayout(layout);
 
     detailsDialog->exec();
+    //я заебался нахуй !!!
 }
 
