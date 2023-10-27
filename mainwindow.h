@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QPushButton>
-#include <QVBoxLayout>>
+#include <QVBoxLayout>
 #include <QPushButton>
 #include <QApplication>
 #include <QWidget>
@@ -11,6 +11,7 @@
 #include <QLineEdit>
 #include <QMessageBox>
 #include <QListWidgetItem>
+#include <QErrorMessage>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -36,6 +37,8 @@ private slots:
 
     void on_add_clicked();
     void on_add_2_clicked();
+    void on_start_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

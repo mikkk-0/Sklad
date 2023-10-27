@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include "Globals.h"
 
+
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -141,7 +143,7 @@ void MainWindow::show_details(QListWidgetItem* item)
     QDialog* detailsDialog = new QDialog(this);
     detailsDialog->setWindowTitle("Характеристики элемента");
 
-    QLabel* detailsLabel = new QLabel(itemText);//вместо itemText нужно поля продукта брать, а вообще похуй
+    QLabel* detailsLabel = new QLabel(itemText);
 
     QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(detailsLabel);
@@ -149,5 +151,21 @@ void MainWindow::show_details(QListWidgetItem* item)
     detailsDialog->setLayout(layout);
 
     detailsDialog->exec();
+}
+
+
+void MainWindow::on_start_clicked() {
+    if (ui->listWidget_2->count() < 3 || ui->listWidget_2->count() > 9) {
+        QString itemText =
+                  "Невозможно начать моделирование:\nКоличество торговых точек должно быть не меньше 3 и не больше 9.\n";
+        QErrorMessage* detailsDialog = new QErrorMessage(this);
+        detailsDialog->setWindowTitle("Ошибка запуска модели");
+
+        detailsDialog->showMessage(itemText);
+
+        detailsDialog->exec();
+        return;
+    }
+    // пися попа
 }
 
