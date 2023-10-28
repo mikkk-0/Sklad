@@ -28,20 +28,15 @@ model::~model()
 {
     delete ui;
 }
-
-int index(QListWidgetItem* item) {
-    std::string name = item->text().toStdString();
-    int id = 0;
-    for (int i = 0; i < (int)name.size(); ++i) {
-        if (name[i] == '.') break;
-        id = 10 * id + name[i] - '0';
-    }
-    return --id;
-}
-
 void model::show_details(QListWidgetItem* item)
 {
-    int id = index(item);
+    int id = 0;
+    for (int i = 0; i < ui->listWidget->count(); ++i) {
+        if (ui->listWidget->item(i) == item) {
+            id = i;
+            break;
+        }
+    }
     Product* p = prods->at(id);
     QString itemText =
               "Наименование: " + QString::fromStdString(p->getName())

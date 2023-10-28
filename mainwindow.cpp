@@ -29,30 +29,23 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-int index(QListWidgetItem* item) {
-    std::string name = item->text().toStdString();
-    int id = 0;
-    for (int i = 0; i < (int)name.size(); ++i) {
-        if (name[i] == '.') break;
-        id = 10 * id + name[i] - '0';
-    }
-    return --id;
-}
-
 void MainWindow::on_delete_2_clicked()
 {
     ui->listWidget->removeItemWidget(ui->listWidget->currentItem());
     QListWidgetItem* selectedItem = ui->listWidget->currentItem();
     if (selectedItem) {
-        int id = index(selectedItem);
+        int id = 0;
+        for (int i = 0; i < ui->listWidget->count(); ++i) {
+            if (ui->listWidget->item(i) == selectedItem) {
+                id = i;
+                break;
+            }
+        }
         delete prods->at(id);
         prods->erase(prods->begin() + id);
         delete selectedItem;
         for (int i = 0; i < (int)prods->size(); ++i) {
             prods->at(i)->setId(i);
-            auto item = ui->listWidget->item(i);
-            QString newText = QString::fromStdString(std::to_string(i + 1)) + ". " + QString::fromStdString(prods->at(i)->getName());
-            item->setText(newText);
         }
     }
 }
@@ -90,12 +83,18 @@ void MainWindow::on_edit_clicked()
 {
     QListWidgetItem* selectedItem = ui->listWidget->currentItem();
     if (selectedItem) {
-        int id = index(selectedItem);
+        int id = 0;
+        for (int i = 0; i < ui->listWidget->count(); ++i) {
+            if (ui->listWidget->item(i) == selectedItem) {
+                id = i;
+                break;
+            }
+        }
         Product* newProduct = getProduct(this);
         newProduct->setId(id);
         delete prods->at(id);
         prods->at(id) = newProduct;
-        QString newText = QString::fromStdString(std::to_string(id + 1)) + ". " + QString::fromStdString(newProduct->getName());
+        QString newText = QString::fromStdString(newProduct->getName());
         selectedItem->setText(newText);
     }
 }
@@ -105,7 +104,7 @@ void MainWindow::on_add_clicked()
     Product* product = getProduct(this);
     product->setId(prods->size());
     prods->emplace_back(product);
-    QString newText = QString::fromStdString(std::to_string(prods->size())) + ". " + QString::fromStdString(product->getName());
+    QString newText = QString::fromStdString(product->getName());
     ui->listWidget->addItem(newText);
 }
 
@@ -130,7 +129,13 @@ void MainWindow::on_add_2_clicked()
 
 void MainWindow::show_details(QListWidgetItem* item)
 {
-    int id = index(item);
+    int id = 0;
+    for (int i = 0; i < ui->listWidget->count(); ++i) {
+        if (ui->listWidget->item(i) == item) {
+            id = i;
+            break;
+        }
+    }
     Product* p = prods->at(id);
     QString itemText =
               "Наименование: " + QString::fromStdString(p->getName())
