@@ -12,6 +12,8 @@
 #include <QMessageBox>
 #include <QListWidgetItem>
 #include <QErrorMessage>
+#include "Includes.h"
+#include "product.h"
 #include <model.h>
 
 QT_BEGIN_NAMESPACE
@@ -41,7 +43,8 @@ private slots:
     void on_start_clicked();
 
 private:
+    std::vector<Product*>* prods;
     Ui::MainWindow *ui;
-    model model;
+    model* model_;
 };
 #endif

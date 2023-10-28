@@ -11,7 +11,7 @@ public:
     void setDate(int newDate);
     friend Query* generate_query(std::vector<Product*> all_prods);
     size_t size() const;
-    std::pair<int, int> operator[](int& x) const;
+    std::pair<int, int> at(int& x) const;
 
 private:
     int date;

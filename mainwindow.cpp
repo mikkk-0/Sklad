@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "Globals.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -22,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->spinBox->setMinimum(10);
     ui->spinBox->setMaximum(30);
-    global::products = new std::vector<Product*>;
+    prods = new std::vector<Product*>;
 }
 
 MainWindow::~MainWindow()
@@ -46,13 +45,13 @@ void MainWindow::on_delete_2_clicked()
     QListWidgetItem* selectedItem = ui->listWidget->currentItem();
     if (selectedItem) {
         int id = index(selectedItem);
-        delete global::products->at(id);
-        global::products->erase(global::products->begin() + id);
+        delete prods->at(id);
+        prods->erase(prods->begin() + id);
         delete selectedItem;
-        for (int i = 0; i < (int)global::products->size(); ++i) {
-            global::products->at(i)->setId(i);
+        for (int i = 0; i < (int)prods->size(); ++i) {
+            prods->at(i)->setId(i);
             auto item = ui->listWidget->item(i);
-            QString newText = QString::fromStdString(std::to_string(i + 1)) + ". " + QString::fromStdString(global::products->at(i)->getName());
+            QString newText = QString::fromStdString(std::to_string(i + 1)) + ". " + QString::fromStdString(prods->at(i)->getName());
             item->setText(newText);
         }
     }
@@ -94,8 +93,8 @@ void MainWindow::on_edit_clicked()
         int id = index(selectedItem);
         Product* newProduct = getProduct(this);
         newProduct->setId(id);
-        delete global::products->at(id);
-        global::products->at(id) = newProduct;
+        delete prods->at(id);
+        prods->at(id) = newProduct;
         QString newText = QString::fromStdString(std::to_string(id + 1)) + ". " + QString::fromStdString(newProduct->getName());
         selectedItem->setText(newText);
     }
@@ -104,9 +103,9 @@ void MainWindow::on_edit_clicked()
 void MainWindow::on_add_clicked()
 {
     Product* product = getProduct(this);
-    product->setId(global::products->size());
-    global::products->emplace_back(product);
-    QString newText = QString::fromStdString(std::to_string(global::products->size())) + ". " + QString::fromStdString(product->getName());
+    product->setId(prods->size());
+    prods->emplace_back(product);
+    QString newText = QString::fromStdString(std::to_string(prods->size())) + ". " + QString::fromStdString(product->getName());
     ui->listWidget->addItem(newText);
 }
 
@@ -132,7 +131,7 @@ void MainWindow::on_add_2_clicked()
 void MainWindow::show_details(QListWidgetItem* item)
 {
     int id = index(item);
-    Product* p = global::products->at(id);
+    Product* p = prods->at(id);
     QString itemText =
               "Наименование: " + QString::fromStdString(p->getName())
             + "\nСрок годности (дней): " + QString::fromStdString(std::to_string(p->getTime_limit()))
@@ -166,7 +165,8 @@ void MainWindow::on_start_clicked() {
         return;
     }
     else {
-        model.show();
+        model_ = new model(nullptr, this->prods);
+        model_->show();
     }
 }
 

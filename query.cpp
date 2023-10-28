@@ -20,7 +20,7 @@ size_t Query::size() const
     return prods.size();
 }
 
-std::pair<int, int> Query::operator[](int &x) const
+std::pair<int, int> Query::at(int &x) const
 {
     if (x >= this->size()) throw std::exception();
     return prods[x];

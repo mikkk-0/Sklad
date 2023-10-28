@@ -20,7 +20,6 @@ SOURCES += \
 
 HEADERS += \
     Classes.h \
-    Globals.h \
     Includes.h \
     mainwindow.h \
     model.h \

@@ -1,6 +1,7 @@
 #ifndef SHIPMENT_H
 #define SHIPMENT_H
-#include "Globals.h"
+#include "Includes.h"
+#include "product.h"
 
 class Shipment
 {

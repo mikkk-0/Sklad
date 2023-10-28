@@ -12,6 +12,7 @@
 #include <QMessageBox>
 #include <QListWidgetItem>
 #include <QErrorMessage>
+#include "Includes.h"
 
 namespace Ui {
 class model;
@@ -22,11 +23,13 @@ class model : public QWidget
     Q_OBJECT
 
 public:
-    explicit model(QWidget *parent = nullptr);
+    model(QWidget*, std::vector<Product*>*);
     ~model();
 
 private:
     Ui::model *ui;
+    std::vector<Product*>* prods;
+    Storage* st;
 };
 
 #endif // MODEL_H
