@@ -21,6 +21,7 @@ SOURCES += \
 HEADERS += \
     Classes.h \
     Includes.h \
+    customwidget.h \
     mainwindow.h \
     model.h \
     product.h \

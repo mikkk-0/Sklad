@@ -1,6 +1,7 @@
 #include "model.h"
 #include "QtWidgets/qlabel.h"
 #include "ui_model.h"
+#include "customwidget.h"
 
 model::model(QWidget *parent, std::vector<Product*>* prods) :
     QWidget(parent),
@@ -17,10 +18,12 @@ model::model(QWidget *parent, std::vector<Product*>* prods) :
     ui->tabWidget->setTabText(0, "Список заказов");
 
     for(int i = 0; i < prods->size(); ++i) {
-        ui->listWidget->addItem(QString::fromStdString(prods->at(i)->getName()));
+        CustomListWidgetItem* item1 = new CustomListWidgetItem(QString::fromStdString(prods->at(i)->getName()),
+                                                               prods->at(i)->getCount(),
+                                                               prods->at(i)->getPrice(),
+                                                               prods->at(i)->getTime_limit());
     }
 
-    connect(ui->listWidget, &QListWidget::itemDoubleClicked, this, &model::show_details);
 }
 
 model::~model()
