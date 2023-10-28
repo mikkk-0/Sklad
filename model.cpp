@@ -30,7 +30,7 @@ model::model(QWidget *parent, std::vector<Product*>* prods) :
                                                                prods->at(i)->getPrice(),
                                                                prods->at(i)->getTime_limit(), 1);
     }
-
+    //connect(checkBox, &QCheckBox::stateChanged, this, &CustomListWidgetItem::onCheckBoxStateChanged);
 }
 
 model::~model()

@@ -41,4 +41,16 @@ QLabel* titleLabel = new QLabel(title);
     setSizeHint(widget->sizeHint());
 
     listWidget()->setItemWidget(this, widget);
+};
+
+void CustomListWidgetItem::onCheckBoxStateChanged(int state)
+{
+    if (state == Qt::Checked)
+    {
+        //действия, когда флажок зелёный
+    }
+    else
+    {
+        //действия, когда флажок снят
+    }
 }
