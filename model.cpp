@@ -21,7 +21,14 @@ model::model(QWidget *parent, std::vector<Product*>* prods) :
         CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget, QString::fromStdString(prods->at(i)->getName()),
                                                                prods->at(i)->getCount(),
                                                                prods->at(i)->getPrice(),
-                                                               prods->at(i)->getTime_limit());
+                                                               prods->at(i)->getTime_limit(), 0);
+    }
+
+    for(int i = 0; i < prods->size(); ++i) {
+        CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget_3, QString::fromStdString(prods->at(i)->getName()),
+                                                               prods->at(i)->getCount(),
+                                                               prods->at(i)->getPrice(),
+                                                               prods->at(i)->getTime_limit(), 1);
     }
 
 }
