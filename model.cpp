@@ -16,10 +16,9 @@ model::model(QWidget *parent, std::vector<Product*>* prods) :
     ui->tabWidget->setTabText(3, "МБМБМБМБМБМБМББ");
     ui->tabWidget->setTabText(0, "Список заказов");
 
-    ui->listWidget->addItem("что-то что потом поменяем");
-    ui->listWidget->addItem("что-то что потом поменяем");
-    ui->listWidget->addItem("что-то что потом поменяем");
-    ui->listWidget->addItem("что-то что потом поменяем");
+    for(int i = 0; i < prods->size(); ++i) {
+        ui->listWidget->addItem(QString::fromStdString(prods->at(i)->getName()));
+    }
 
     connect(ui->listWidget, &QListWidget::itemDoubleClicked, this, &model::show_details);
 }

@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
 //    ui->listWidget->addItem("Номер: 3");
 //    ui->listWidget->addItem("Номер: 4");
 
+
     ui->listWidget_2->addItem("Торговая точка номер 1");
     ui->listWidget_2->addItem("Торговая точка номер 2");
     ui->listWidget_2->addItem("Торговая точка номер 3");
@@ -171,6 +172,7 @@ void MainWindow::on_start_clicked() {
     }
     else {
         model_ = new model(nullptr, this->prods);
+        model_->setWindowTitle("Система управления");
         model_->show();
     }
 }
