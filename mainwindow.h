@@ -12,6 +12,7 @@
 #include <QMessageBox>
 #include <QListWidgetItem>
 #include <QErrorMessage>
+#include <model.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -41,5 +42,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    model model;
 };
 #endif

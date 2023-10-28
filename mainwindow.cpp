@@ -3,7 +3,6 @@
 #include "Globals.h"
 
 
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -166,6 +165,8 @@ void MainWindow::on_start_clicked() {
         detailsDialog->exec();
         return;
     }
-    // пися попа
+    else {
+        model.show();
+    }
 }
 

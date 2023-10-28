@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
+    model.cpp \
     product.cpp \
     query.cpp \
     selling_point.cpp \
@@ -22,6 +23,7 @@ HEADERS += \
     Globals.h \
     Includes.h \
     mainwindow.h \
+    model.h \
     product.h \
     query.h \
     selling_point.h \
@@ -29,7 +31,8 @@ HEADERS += \
     storage.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    model.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
