@@ -1,18 +1,19 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-#include <QWidget>
 #include <QMainWindow>
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QApplication>
+#include <QWidget>
 #include <QInputDialog>
 #include <QLineEdit>
 #include <QMessageBox>
 #include <QListWidgetItem>
 #include <QErrorMessage>
 #include "Includes.h"
+#include "product.h"
 
 namespace Ui {
 class model;
@@ -25,6 +26,9 @@ class model : public QWidget
 public:
     model(QWidget*, std::vector<Product*>*);
     ~model();
+
+public slots:
+    void show_details(QListWidgetItem* item);
 
 private:
     Ui::model *ui;
