@@ -18,7 +18,7 @@ model::model(QWidget *parent, std::vector<Product*>* prods) :
     ui->tabWidget->setTabText(0, "Список заказов");
 
     for(int i = 0; i < prods->size(); ++i) {
-        CustomListWidgetItem* item1 = new CustomListWidgetItem(QString::fromStdString(prods->at(i)->getName()),
+        CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget, QString::fromStdString(prods->at(i)->getName()),
                                                                prods->at(i)->getCount(),
                                                                prods->at(i)->getPrice(),
                                                                prods->at(i)->getTime_limit());
