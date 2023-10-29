@@ -35,6 +35,7 @@ CustomListWidgetItem::CustomListWidgetItem(QListWidget * listview, Product* prod
     QVBoxLayout* mainLayout = new QVBoxLayout();
     mainLayout->addWidget(titleLabel);
     mainLayout->addLayout(layout);
+    colorLabelsRed(mainLayout);
 
     QWidget* widget = new QWidget();
     widget->setLayout(mainLayout);
@@ -43,6 +44,25 @@ CustomListWidgetItem::CustomListWidgetItem(QListWidget * listview, Product* prod
 
     listWidget()->setItemWidget(this, widget);
 };
+
+void CustomListWidgetItem::colorLabelsRed(QVBoxLayout* mainLayout)
+{
+    QPalette palette;
+    palette.setColor(QPalette::WindowText, Qt::red);
+
+    for (int i = 0; i < mainLayout->count(); ++i) {
+        QLayoutItem* item = mainLayout->itemAt(i);
+        if (item) {
+            QWidget* widget = item->widget();
+            if (widget) {
+                QLabel* label = qobject_cast<QLabel*>(widget);
+                if (label) {
+                    label->setPalette(palette);
+                }
+            }
+        }
+    }
+}
 
 void CustomListWidgetItem::onCheckBoxStateChanged(int state)
 {

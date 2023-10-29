@@ -12,7 +12,7 @@
 #include <QMessageBox>
 #include <QListWidgetItem>
 #include <QErrorMessage>
-#include "Includes.h"
+#include <QPalette>
 #include "product.h"
 #include <model.h>
 
