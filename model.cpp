@@ -18,17 +18,11 @@ model::model(QWidget *parent, std::vector<Product*>* prods) :
     ui->tabWidget->setTabText(0, "Список заказов");
 
     for(int i = 0; i < prods->size(); ++i) {
-        CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget, QString::fromStdString(prods->at(i)->getName()),
-                                                               prods->at(i)->getCount(),
-                                                               prods->at(i)->getPrice(),
-                                                               prods->at(i)->getTime_limit(), 0);
+        CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget, prods->at(i), false);
     }
 
     for(int i = 0; i < prods->size(); ++i) {
-        CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget_3, QString::fromStdString(prods->at(i)->getName()),
-                                                               prods->at(i)->getCount(),
-                                                               prods->at(i)->getPrice(),
-                                                               prods->at(i)->getTime_limit(), 1);
+        CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget_3, prods->at(i), true);
     }
     //connect(checkBox, &QCheckBox::stateChanged, this, &CustomListWidgetItem::onCheckBoxStateChanged);
 }

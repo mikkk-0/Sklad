@@ -2,10 +2,11 @@
 #define CUSTOMWIDGET_H
 
 #include <mainwindow.h>
+#include "product.h"
 
 class CustomListWidgetItem: public QListWidgetItem {
 public:
-    CustomListWidgetItem(QListWidget *listview, QString title, int item1, int item2, int item3, int fl);
+    CustomListWidgetItem(QListWidget *listview, Product* product, bool showCheckBox);
     void onCheckBoxStateChanged(int state);
 };
 

@@ -2,25 +2,26 @@
 #include "QtWidgets/qlabel.h"
 #include <QCheckBox>
 
-CustomListWidgetItem::CustomListWidgetItem(QListWidget * listview, QString title, int item1, int item2, int item3, int fl):QListWidgetItem(listview)
+CustomListWidgetItem::CustomListWidgetItem(QListWidget * listview, Product* product, bool showCheckBox):QListWidgetItem(listview)
 {
-QLabel* titleLabel = new QLabel(title);
+    QString title = QString::fromStdString(product->getName());
+    QLabel* titleLabel = new QLabel(title);
     QFont titleFont;
     titleFont.setPointSize(24);
     titleLabel->setFont(titleFont);
 
     QLabel* spaceLabel = new QLabel(" ");
 
-    QLabel* label1 = new QLabel("Остаток: " + QString::number(item1) + "(кг)");
+    QLabel* label1 = new QLabel("Остаток: " + QString::number(product->getCount()) + " шт. (" + QString::number(product->getCount() * product->getWeight_per_pack()) + " кг)");
     QLabel* spaceLabel1 = new QLabel(" ");
 
-    QLabel* label2 = new QLabel("Цена: " + QString::number(item2) + "(руб)");
+    QLabel* label2 = new QLabel("Цена: " + QString::number(product->getPrice()) + " руб.");
     QLabel* spaceLabel2 = new QLabel(" ");
 
-    QLabel* label3 = new QLabel("Срок годности: " + QString::number(item3) + "(сут)");
+    QLabel* label3 = new QLabel("Срок годности: " + QString::number(product->getTime_limit()) + " суток");
 
     QCheckBox* checkBox = new QCheckBox();
-    if(fl == 0) checkBox->hide();
+    if(!showCheckBox) checkBox->hide();
 
     QHBoxLayout* layout = new QHBoxLayout();
     layout->addWidget(label1);
