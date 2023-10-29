@@ -31,7 +31,7 @@ model::model(QWidget *parent, std::vector<Product*>* prods) :
 
     connect(ui->listWidget, &QListWidget::itemDoubleClicked, this, &model::perc);
 
-    connect(ui->listWidget, &QListWidget::itemClicked, this, &model::updateTextEdit);
+    connect(ui->listWidget_2, &QListWidget::itemClicked, this, &model::updateTextEdit);
 }
 
 model::~model()
@@ -62,6 +62,10 @@ void model::perc(QListWidgetItem* item)
         }
         Product* p = prods->at(id);
         p->setPercent(newValue);
+    }
+    ui->listWidget->clear();
+    for(int i = 0; i < prods->size(); ++i) {
+        CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget, prods->at(i), false);
     }
 }
 
