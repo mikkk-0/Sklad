@@ -5,16 +5,6 @@ Query::Query()
 
 }
 
-int Query::getDate() const
-{
-    return date;
-}
-
-void Query::setDate(int newDate)
-{
-    date = newDate;
-}
-
 size_t Query::size() const
 {
     return prods.size();

@@ -7,8 +7,6 @@ class Query
 {
 public:
     Query();
-    int getDate() const;
-    void setDate(int newDate);
     friend Query* generate_query(std::vector<Product*> all_prods);
     size_t size() const;
     std::pair<int, int> at(int& x) const;
@@ -19,7 +17,6 @@ public:
     void setProds(const std::vector<std::pair<int, double> > &newProds);
 
 private:
-    int date;
     Selling_Point* s_pt;
     std::vector<std::pair<int, double>> prods; // {Product_id, weight}
 };
