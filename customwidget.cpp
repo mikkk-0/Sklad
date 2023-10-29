@@ -35,7 +35,7 @@ CustomListWidgetItem::CustomListWidgetItem(QListWidget * listview, Product* prod
     QVBoxLayout* mainLayout = new QVBoxLayout();
     mainLayout->addWidget(titleLabel);
     mainLayout->addLayout(layout);
-    colorLabelsRed(mainLayout);
+    strikeoutText(mainLayout);
 
     QWidget* widget = new QWidget();
     widget->setLayout(mainLayout);
@@ -63,6 +63,28 @@ void CustomListWidgetItem::colorLabelsRed(QLayout* mainLayout)
                 QLayout* layout = item->layout();
                 if (layout) {
                     colorLabelsRed(layout);
+                }
+            }
+        }
+    }
+}
+
+void CustomListWidgetItem::strikeoutText(QLayout* mainLayout) {
+    for (int i = 0; i < mainLayout->count(); ++i) {
+        QLayoutItem* item = mainLayout->itemAt(i);
+        if (item) {
+            QWidget* widget = item->widget();
+            if (widget) {
+                QLabel* label = qobject_cast<QLabel*>(widget);
+                if (label) {
+                    QFont font = label->font();
+                    font.setStrikeOut(true);
+                    label->setFont(font);
+                }
+            } else {
+                QLayout* layout = item->layout();
+                if (layout) {
+                    strikeoutText(layout);
                 }
             }
         }
