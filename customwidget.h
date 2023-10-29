@@ -8,7 +8,7 @@ class CustomListWidgetItem: public QListWidgetItem {
 public:
     CustomListWidgetItem(QListWidget *listview, Product* product, bool showCheckBox);
     void onCheckBoxStateChanged(int state);
-    void colorLabelsRed(QVBoxLayout* layout);
+    void colorLabelsRed(QLayout* layout);
 };
 
 #endif // CUSTOMWIDGET_H

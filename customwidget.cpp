@@ -45,10 +45,10 @@ CustomListWidgetItem::CustomListWidgetItem(QListWidget * listview, Product* prod
     listWidget()->setItemWidget(this, widget);
 };
 
-void CustomListWidgetItem::colorLabelsRed(QVBoxLayout* mainLayout)
+void CustomListWidgetItem::colorLabelsRed(QLayout* mainLayout)
 {
     QPalette palette;
-    palette.setColor(QPalette::WindowText, Qt::red);
+    palette.setColor(QPalette::Text, Qt::red);
 
     for (int i = 0; i < mainLayout->count(); ++i) {
         QLayoutItem* item = mainLayout->itemAt(i);
@@ -58,6 +58,11 @@ void CustomListWidgetItem::colorLabelsRed(QVBoxLayout* mainLayout)
                 QLabel* label = qobject_cast<QLabel*>(widget);
                 if (label) {
                     label->setPalette(palette);
+                }
+            } else {
+                QLayout* layout = item->layout();
+                if (layout) {
+                    colorLabelsRed(layout);
                 }
             }
         }
