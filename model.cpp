@@ -1,5 +1,4 @@
 #include "model.h"
-#include "QtWidgets/qlabel.h"
 #include "ui_model.h"
 #include "customwidget.h"
 
@@ -10,6 +9,7 @@ model::model(QWidget *parent, std::vector<Product*>* prods) :
     ui->setupUi(this);
 
     this->prods = prods;
+
     for (int i = 0; i < (int)prods->size(); ++i) {
         auto& p = prods->at(i);
         p->setCount(30);
@@ -28,37 +28,29 @@ model::model(QWidget *parent, std::vector<Product*>* prods) :
         CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget_3, prods->at(i), true);
     }
     //connect(checkBox, &QCheckBox::stateChanged, this, &CustomListWidgetItem::onCheckBoxStateChanged);
+    connect(ui->listWidget, &QListWidget::itemDoubleClicked, this, &model::perc);
 }
 
 model::~model()
 {
     delete ui;
 }
-void model::show_details(QListWidgetItem* item)
+
+
+void model::perc(QListWidgetItem* item)
 {
-    int id = 0;
-    for (int i = 0; i < ui->listWidget->count(); ++i) {
-        if (ui->listWidget->item(i) == item) {
-            id = i;
-            break;
+    if (item) {
+        QString itemText = item->text();
+
+        int newValue = QInputDialog::getDouble(this, "Ввод процента уценки", "Введите новый процент:", 15, 1, 100);
+        int id = 0;
+        for (int i = 0; i < ui->listWidget->count(); ++i) {
+            if (ui->listWidget->item(i) == item) {
+                id = i;
+                break;
+            }
         }
+        Product* p = prods->at(id);
+        p->setPercent(newValue);
     }
-    Product* p = prods->at(id);
-    QString itemText =
-              "Наименование: " + QString::fromStdString(p->getName())
-            + "\nСрок годности (дней): " + QString::fromStdString(std::to_string(p->getTime_limit()))
-            + "\nЦена за упаковку (руб): " + QString::fromStdString(std::to_string(p->getPrice()))
-            + "\nВес одной упаковки (кг): " + QString::fromStdString(std::to_string(p->getWeight_per_pack()));
-
-    QDialog* detailsDialog = new QDialog(this);
-    detailsDialog->setWindowTitle("Характеристики элемента");
-
-    QLabel* detailsLabel = new QLabel(itemText);
-
-    QVBoxLayout* layout = new QVBoxLayout;
-    layout->addWidget(detailsLabel);
-
-    detailsDialog->setLayout(layout);
-
-    detailsDialog->exec();
 }

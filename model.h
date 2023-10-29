@@ -27,7 +27,7 @@ public:
     ~model();
 
 public slots:
-    void show_details(QListWidgetItem* item);
+    void perc(QListWidgetItem* item);
 
 private:
     Ui::model *ui;
