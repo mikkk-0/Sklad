@@ -23,6 +23,8 @@ public:
     int getId() const;
     void setId(int newId);
 
+    Product* copy();
+
 private:
     double price;
     int percent;

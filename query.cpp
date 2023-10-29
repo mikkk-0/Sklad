@@ -26,6 +26,26 @@ std::pair<int, int> Query::at(int &x) const
     return prods[x];
 }
 
+Selling_Point *Query::getS_pt() const
+{
+    return s_pt;
+}
+
+void Query::setS_pt(Selling_Point *newS_pt)
+{
+    s_pt = newS_pt;
+}
+
+std::vector<std::pair<int, double> > Query::getProds() const
+{
+    return prods;
+}
+
+void Query::setProds(const std::vector<std::pair<int, double> > &newProds)
+{
+    prods = newProds;
+}
+
 Query *generate_query(std::vector<Product *> all_prods)
 {
     Query* q = new Query;

@@ -10,7 +10,10 @@ model::model(QWidget *parent, std::vector<Product*>* prods) :
     ui->setupUi(this);
 
     this->prods = prods;
-
+    for (int i = 0; i < (int)prods->size(); ++i) {
+        auto& p = prods->at(i);
+        p->setCount(30);
+    }
 
     ui->tabWidget->setTabText(1, "Список товаров на складе");
     ui->tabWidget->setTabText(2, "Заказы в фирму-поставщик");

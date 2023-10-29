@@ -5,40 +5,34 @@ Shipment::Shipment()
 
 }
 
-int Shipment::getDate() const
+int Shipment::getLeft_days() const
 {
-    return date;
+    return left_days;
 }
 
-void Shipment::setDate(int newDate)
+void Shipment::setLeft_days(int newLeft_days)
 {
-    date = newDate;
+    left_days = newLeft_days;
 }
 
-Product *Shipment::getProduct() const
+void Shipment::setProducts(const std::vector<Product *> &newProducts)
 {
-    return product;
+    products = newProducts;
 }
 
-void Shipment::setProduct(Product *newProduct)
+void Shipment::decLeftDays()
 {
-    product = newProduct;
+    left_days--;
 }
 
-int Shipment::getCount_of_product() const
+std::vector<Product *> Shipment::getProducts() const
 {
-    return count_of_product;
+    return products;
 }
 
-void Shipment::setCount_of_product(int newCount_of_product)
-{
-    count_of_product = newCount_of_product;
-}
-
-Shipment* generateShipment(Product* product, int weight, int date) {
+Shipment* generateShipment(std::vector<Product*>& products, int days) {
     Shipment* shpmnt = new Shipment;
-    shpmnt->setProduct(product);
-    shpmnt->setCount_of_product(weight / product->getWeight_per_pack());
-    shpmnt->setDate(date);
+    shpmnt->setProducts(products);
+    shpmnt->setLeft_days(days);
     return shpmnt;
 }

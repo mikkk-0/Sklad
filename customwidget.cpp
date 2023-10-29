@@ -35,7 +35,6 @@ CustomListWidgetItem::CustomListWidgetItem(QListWidget * listview, Product* prod
     QVBoxLayout* mainLayout = new QVBoxLayout();
     mainLayout->addWidget(titleLabel);
     mainLayout->addLayout(layout);
-    strikeoutText(mainLayout);
 
     QWidget* widget = new QWidget();
     widget->setLayout(mainLayout);
@@ -44,6 +43,8 @@ CustomListWidgetItem::CustomListWidgetItem(QListWidget * listview, Product* prod
 
     listWidget()->setItemWidget(this, widget);
 };
+
+
 
 void CustomListWidgetItem::colorLabelsRed(QLayout* mainLayout)
 {

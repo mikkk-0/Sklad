@@ -7,18 +7,16 @@ class Shipment
 {
 public:
     Shipment();
-    int getDate() const;
-    void setDate(int newDate);
-    Product *getProduct() const;
-    void setProduct(Product *newProduct);
-    friend Shipment* generateShipment(int id, int weight);
-    int getCount_of_product() const;
-    void setCount_of_product(int newCount_of_product);
+    int getLeft_days() const;
+    void setLeft_days(int newLeft_days);
+    void setProducts(const std::vector<Product *> &newProducts);
+    friend Shipment* generateShipment(std::vector<Product*> &products, int days);
+    void decLeftDays();
+    std::vector<Product *> getProducts() const;
 
 private:
-    int date;
-    int count_of_product;
-    Product* product;
+    int left_days;
+    std::vector<Product*> products;
 };
 
 #endif // SHIPMENT_H

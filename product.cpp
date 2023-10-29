@@ -73,3 +73,10 @@ void Product::setId(int newId)
 {
     id = newId;
 }
+
+Product *Product::copy()
+{
+    Product* product = new Product;
+    *product = *this;
+    return product;
+}
