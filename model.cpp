@@ -28,7 +28,10 @@ model::model(QWidget *parent, std::vector<Product*>* prods) :
         CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget_3, prods->at(i), true);
     }
     //connect(checkBox, &QCheckBox::stateChanged, this, &CustomListWidgetItem::onCheckBoxStateChanged);
+
     connect(ui->listWidget, &QListWidget::itemDoubleClicked, this, &model::perc);
+
+    connect(ui->listWidget, &QListWidget::itemClicked, this, &model::updateTextEdit);
 }
 
 model::~model()
@@ -36,6 +39,13 @@ model::~model()
     delete ui;
 }
 
+
+void model::updateTextEdit(QListWidgetItem* item) {
+    if (item) {
+        QString itemText = item->text();
+        ui->textEdit->setPlainText(itemText);
+    }
+}
 
 void model::perc(QListWidgetItem* item)
 {

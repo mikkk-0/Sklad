@@ -30,6 +30,7 @@ public:
 
 public slots:
     void perc(QListWidgetItem* item);
+    void updateTextEdit(QListWidgetItem* item);
 
 private slots:
     void on_create_shipment_clicked();
