@@ -13,6 +13,8 @@
 #include <QListWidgetItem>
 #include <QErrorMessage>
 #include "product.h"
+#include "storage.h"
+#include "shipment.h"
 
 namespace Ui {
 class model;
@@ -28,6 +30,9 @@ public:
 
 public slots:
     void perc(QListWidgetItem* item);
+
+private slots:
+    void on_create_shipment_clicked();
 
 private:
     Ui::model *ui;

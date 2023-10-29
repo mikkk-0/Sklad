@@ -54,3 +54,17 @@ void model::perc(QListWidgetItem* item)
         p->setPercent(newValue);
     }
 }
+
+void model::on_create_shipment_clicked()
+{
+    std::vector<Product*> need_prods;
+    for (int i = 0; i < ui->listWidget_3->count(); ++i) {
+        CustomListWidgetItem* item = dynamic_cast<CustomListWidgetItem*>(ui->listWidget_3->item(i));
+        if (item->isChecked()) {
+            need_prods.emplace_back(this->prods->at(i));
+        }
+    }
+    int days = rnd() % 4 + 1;
+    this->st->addShipment(generateShipment(need_prods, days));
+    this->st->orderShipments();
+}

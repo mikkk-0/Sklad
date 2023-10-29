@@ -6,10 +6,10 @@ class Product
 {
 public:
     Product();
-    int getPrice() const;
-    void setPrice(int newPrice);
-    int getPercent() const;
-    void setPercent(int newPercent);
+    double getPrice() const;
+    void setPrice(double newPrice);
+    double getPercent() const;
+    void setPercent(double newPercent);
     int getTime_limit() const;
     void setTime_limit(int newTime_limit);
     std::string getName() const;
@@ -27,7 +27,7 @@ public:
 
 private:
     double price;
-    int percent;
+    double percent;
     int time_limit;
     int count;
     std::string name;

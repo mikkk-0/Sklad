@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -59,8 +59,26 @@
          <x>0</x>
          <y>0</y>
          <width>771</width>
-         <height>551</height>
+         <height>500</height>
         </rect>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="create_shipment">
+       <property name="geometry">
+        <rect>
+         <x>480</x>
+         <y>505</y>
+         <width>291</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>15</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Заказать</string>
        </property>
       </widget>
      </widget>

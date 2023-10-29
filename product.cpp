@@ -4,24 +4,25 @@ Product::Product() {
 
 }
 
-int Product::getPrice() const
+double Product::getPrice() const
 {
     return price;
 }
 
-void Product::setPrice(int newPrice)
+void Product::setPrice(double newPrice)
 {
     price = newPrice;
 }
 
-int Product::getPercent() const
+double Product::getPercent() const
 {
     return percent;
 }
 
-void Product::setPercent(int newPercent)
+void Product::setPercent(double newPercent)
 {
     percent = newPercent;
+    this->price *= 1 + double(percent / 100.0);
 }
 
 int Product::getTime_limit() const
