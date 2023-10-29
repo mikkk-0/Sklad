@@ -56,10 +56,10 @@
       <widget class="QListWidget" name="listWidget_3">
        <property name="geometry">
         <rect>
-         <x>150</x>
-         <y>40</y>
-         <width>451</width>
-         <height>471</height>
+         <x>0</x>
+         <y>0</y>
+         <width>771</width>
+         <height>551</height>
         </rect>
        </property>
       </widget>
