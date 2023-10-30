@@ -16,7 +16,7 @@
 #include "product.h"
 #include "shipment.h"
 
-class clwi_4
+class clwi_4 : public QListWidgetItem
 {
 public:
     clwi_4(QListWidget *listview, Shipment * shipm);
