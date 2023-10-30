@@ -9,6 +9,7 @@ class Storage
 {
 public:
     Storage();
+    Storage(std::vector<Product*>*);
     void processShipments();
     void generateQueries();
     void addShipment(Shipment* shipment);

@@ -8,6 +8,9 @@ class CustomListWidgetItem: public QListWidgetItem {
 public:
     CustomListWidgetItem(QListWidget *listview, Product* product, bool showCheckBox);
     void onCheckBoxStateChanged(int state);
+    void colorLabelsRed();
+    void strikeoutText();
+private:
     void colorLabelsRed(QLayout* layout);
     void strikeoutText(QLayout* layout);
 };

@@ -8,6 +8,11 @@ Storage::Storage()
     this->today_qrs = std::vector<Query*>();
 }
 
+Storage::Storage(std::vector<Product *> * products)
+{
+    this->prods = *products;
+}
+
 void Storage::processShipments()
 {
     for (int i = 0; i < this->shpmnts.size(); ++i) {

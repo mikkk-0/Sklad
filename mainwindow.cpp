@@ -76,7 +76,7 @@ Product* getProduct(QWidget* parent) {
     double weight = QInputDialog::getDouble(parent, "Добавление продукта", "Введите вес 1 упаковку продукта (кг):", .5, .1);
     p->setWeight_per_pack(weight);
     p->setPercent(0);
-    p->setCount(20);
+    p->setCount(30);
     return p;
 }
 

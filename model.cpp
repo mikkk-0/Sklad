@@ -9,12 +9,7 @@ model::model(QWidget *parent, std::vector<Product*>* prods) :
     ui->setupUi(this);
 
     this->prods = prods;
-    st = new Storage;
-
-    for (int i = 0; i < (int)prods->size(); ++i) {
-        auto& p = prods->at(i);
-        p->setCount(30);
-    }
+    st = new Storage(prods);
 
     ui->tabWidget->setTabText(1, "Список товаров на складе");
     ui->tabWidget->setTabText(2, "Заказы в фирму-поставщик");
@@ -58,15 +53,19 @@ void model::perc(QListWidgetItem* item)
                 break;
             }
         }
-        Product* p = prods->at(id);
+        Product* p = st->getProds().at(id);
         if (p->getPercent() != 0) {
             return;
         }
         int newValue = QInputDialog::getDouble(this, "Ввод процента уценки", "Введите новый процент:", 15, 1, 100);
         p->setPercent(newValue);
+        st->orderProducts();
         ui->listWidget->clear();
-        for(int i = 0; i < prods->size(); ++i) {
-            CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget, prods->at(i), false);
+        for(int i = 0; i < st->getProds().size(); ++i) {
+            p = st->getProds().at(i);
+            CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget, p, false);
+            if (p->getTime_limit() == 0) item1->strikeoutText();
+            else if (p->getPercent() == 0 && p->getTime_limit() < 3) item1->colorLabelsRed();
         }
     }
 }

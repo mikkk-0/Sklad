@@ -103,3 +103,15 @@ void CustomListWidgetItem::onCheckBoxStateChanged(int state)
         //действия, когда флажок снят
     }
 }
+
+void CustomListWidgetItem::colorLabelsRed()
+{
+    auto layout = listWidget()->itemWidget(this)->layout();
+    colorLabelsRed(layout);
+}
+
+void CustomListWidgetItem::strikeoutText()
+{
+    auto layout = listWidget()->itemWidget(this)->layout();
+    strikeoutText(layout);
+}
