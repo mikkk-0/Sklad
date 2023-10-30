@@ -3,14 +3,16 @@
 #include "ui_model.h"
 #include "customwidget.h"
 
-model::model(QWidget *parent, std::vector<Product*>* prods) :
+#include <QMenuBar>
+
+model::model(QWidget *parent, std::vector<Product*>* prods, std::vector<std::string> names) :
     QWidget(parent),
     ui(new Ui::model)
 {
     ui->setupUi(this);
 
     this->prods = prods;
-    st = new Storage(prods);
+    st = new Storage(prods, names);
 
     ui->tabWidget->setTabText(1, "Список товаров на складе");
     ui->tabWidget->setTabText(2, "Заказы в фирму-поставщик");
@@ -27,15 +29,22 @@ model::model(QWidget *parent, std::vector<Product*>* prods) :
         CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget_3, prods->at(i), true);
     }
 
-    for(int i = 0; i < st->getShpmnts().size(); ++i){
-        clwi_4* item1 = new clwi_4(ui->listWidget_4, st->getShpmnts()[i]);
-    }
+
 
     connect(ui->listWidget, &QListWidget::itemDoubleClicked, this, &model::perc);
 
     connect(ui->listWidget_2, &QListWidget::itemClicked, this, &model::updateTextEdit);
 
     connect(ui->listWidget_4, &QListWidget::itemDoubleClicked, this, &model::show_details);
+
+
+}
+
+void model::next_day() {
+    st->newDay();
+    for(int i = 0; i < st->getShpmnts().size(); ++i){
+        clwi_4* item1 = new clwi_4(ui->listWidget_4, st->getShpmnts()[i]);
+    }
 }
 
 model::~model()
@@ -123,3 +132,9 @@ void model::on_create_shipment_clicked()
     this->st->addShipment(generateShipment(need_prods, days));
     this->st->orderShipments();
 }
+
+void model::on_nextDay_clicked()
+{
+    next_day();
+}
+

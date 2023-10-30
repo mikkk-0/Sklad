@@ -9,11 +9,17 @@ Storage::Storage()
     shipment_index = 1;
 }
 
-Storage::Storage(std::vector<Product *> * products)
+Storage::Storage(std::vector<Product *> * products,  std::vector<std::string> names)
 {
     this->prods.clear();
     for (int i = 0; i < products->size(); ++i) {
         prods.emplace_back(products->at(i)->copy());
+    }
+    this->s_pts.clear();
+    for (int i = 0; i < names.size(); ++i) {
+        Selling_Point* pt = new Selling_Point;
+        pt->setName(names[i]);
+        s_pts.emplace_back(pt);
     }
 }
 

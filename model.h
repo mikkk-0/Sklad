@@ -27,7 +27,7 @@ class model : public QWidget
     Q_OBJECT
 
 public:
-    model(QWidget*, std::vector<Product*>*);
+    model(QWidget*, std::vector<Product*>*, std::vector<std::string>);
     ~model();
 
 public slots:
@@ -38,10 +38,13 @@ public slots:
 private slots:
     void on_create_shipment_clicked();
 
+    void on_nextDay_clicked();
+
 private:
     Ui::model *ui;
     std::vector<Product*>* prods;
     Storage* st;
+    void next_day();
 };
 
 #endif // MODEL_H

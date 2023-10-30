@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -36,11 +36,29 @@
       <widget class="QTextEdit" name="textEdit">
        <property name="geometry">
         <rect>
-         <x>470</x>
+         <x>430</x>
          <y>0</y>
-         <width>301</width>
-         <height>341</height>
+         <width>341</width>
+         <height>471</height>
         </rect>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="nextDay">
+       <property name="geometry">
+        <rect>
+         <x>440</x>
+         <y>490</y>
+         <width>331</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>15</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Следующий день</string>
        </property>
       </widget>
      </widget>
@@ -99,9 +117,9 @@
       <widget class="QListWidget" name="listWidget_4">
        <property name="geometry">
         <rect>
-         <x>160</x>
+         <x>0</x>
          <y>0</y>
-         <width>441</width>
+         <width>771</width>
          <height>551</height>
         </rect>
        </property>
