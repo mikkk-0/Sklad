@@ -55,6 +55,10 @@ void Product::setCount(int newCount)
     count = newCount;
 }
 
+void Product::decTimeLimit() {
+    count--;
+}
+
 double Product::getWeight_per_pack() const
 {
     return weight_per_pack;
@@ -63,16 +67,6 @@ double Product::getWeight_per_pack() const
 void Product::setWeight_per_pack(double newWeight_per_pack)
 {
     weight_per_pack = newWeight_per_pack;
-}
-
-int Product::getId() const
-{
-    return id;
-}
-
-void Product::setId(int newId)
-{
-    id = newId;
 }
 
 Product *Product::copy()

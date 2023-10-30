@@ -14,14 +14,12 @@ public:
     void setTime_limit(int newTime_limit);
     std::string getName() const;
     void setName(const std::string &newName);
+    void decTimeLimit();
 
     int getCount() const;
     void setCount(int newCount);
     double getWeight_per_pack() const;
     void setWeight_per_pack(double newWeight_per_pack);
-
-    int getId() const;
-    void setId(int newId);
 
     Product* copy();
 
@@ -32,7 +30,6 @@ private:
     int count;
     std::string name;
     double weight_per_pack;
-    int id;
 };
 
 #endif // PRODUCT_H

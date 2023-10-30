@@ -30,6 +30,16 @@ std::vector<Product *> Shipment::getProducts() const
     return products;
 }
 
+int Shipment::getId() const
+{
+    return id;
+}
+
+void Shipment::setId(int newId)
+{
+    id = newId;
+}
+
 Shipment* generateShipment(std::vector<Product*>& products, int days) {
     Shipment* shpmnt = new Shipment;
     shpmnt->setProducts(products);

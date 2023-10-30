@@ -45,9 +45,6 @@ void MainWindow::on_delete_2_clicked()
         delete prods->at(id);
         prods->erase(prods->begin() + id);
         delete selectedItem;
-        for (int i = 0; i < (int)prods->size(); ++i) {
-            prods->at(i)->setId(i);
-        }
     }
 }
 
@@ -92,7 +89,6 @@ void MainWindow::on_edit_clicked()
             }
         }
         Product* newProduct = getProduct(this);
-        newProduct->setId(id);
         delete prods->at(id);
         prods->at(id) = newProduct;
         QString newText = QString::fromStdString(newProduct->getName());
@@ -103,7 +99,6 @@ void MainWindow::on_edit_clicked()
 void MainWindow::on_add_clicked()
 {
     Product* product = getProduct(this);
-    product->setId(prods->size());
     prods->emplace_back(product);
     QString newText = QString::fromStdString(product->getName());
     ui->listWidget->addItem(newText);
