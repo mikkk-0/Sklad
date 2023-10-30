@@ -132,6 +132,11 @@ void model::on_create_shipment_clicked()
     int days = rnd() % 4 + 1;
     this->st->addShipment(generateShipment(need_prods, days));
     this->st->orderShipments();
+
+    ui->listWidget_4->clear();
+    for(int i = 0; i < st->getShpmnts().size(); ++i){
+        clwi_4* item1 = new clwi_4(ui->listWidget_4, st->getShpmnts()[i]);
+    }
 }
 
 void model::on_nextDay_clicked()
