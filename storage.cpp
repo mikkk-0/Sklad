@@ -36,6 +36,7 @@ void Storage::processShipments()
 {
     for (int i = 0; i < this->shpmnts.size(); ++i) {
         auto shp = this->shpmnts[i];
+        shp->decLeftDays();
         if (shp->getLeft_days() == 0) {
             for (auto& p : shp->getProducts()) {
                 this->prods.emplace_back(p->copy());
@@ -45,8 +46,6 @@ void Storage::processShipments()
             this->shpmnts.pop_back();
             delete shp;
             i--;
-        } else {
-            shp->decLeftDays();
         }
     }
     orderShipments();

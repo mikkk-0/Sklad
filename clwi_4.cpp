@@ -15,6 +15,9 @@ clwi_4::clwi_4(QListWidget *listview, Shipment * shipm):QListWidgetItem(listview
         QLabel* labl = new QLabel(srtg);
         lt->addWidget(labl);
     }
+    QString str = QString::fromStdString("Осталось ждать: " + std::to_string(shipm->getLeft_days()) + " дней");
+    QLabel* label = new QLabel(str);
+    lt->addWidget(label);
 
     QVBoxLayout* mainLayout = new QVBoxLayout();
     mainLayout->addWidget(titleLabel);

@@ -167,8 +167,8 @@ void MainWindow::on_start_clicked() {
     }
     else {
         std::vector<std::string> names;
-        for (int i = 0; i < ui->listWidget->count(); ++i) {
-            names.emplace_back(ui->listWidget->item(i)->text().toStdString());
+        for (int i = 0; i < ui->listWidget_2->count(); ++i) {
+            names.emplace_back(ui->listWidget_2->item(i)->text().toStdString());
         }
         model_ = new model(nullptr, this->prods, names);
         model_->setWindowTitle("Система управления");

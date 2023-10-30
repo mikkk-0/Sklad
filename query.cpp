@@ -50,7 +50,7 @@ Query *generate_query(std::vector<Product *> all_prods)
     }
     if (sz == 1) {
         int id = 0;
-        int weight = rnd() % 90 + 10;
+        int weight = rnd() % 30 + 10;
         pr.emplace_back(id, weight);
         q->setProds(pr);
         return q;
@@ -58,12 +58,12 @@ Query *generate_query(std::vector<Product *> all_prods)
     int k = rnd() % (sz / 2) + 2;
     for (int i = 0; i < std::min((k + 2) / 2, priced); ++i) {
         int id = rnd() % priced;
-        int weight = rnd() % 90 + 10;
+        int weight = rnd() % 30 + 10;
         pr.emplace_back(id, weight);
     }
     for (int i = std::min((k + 2) / 2, priced); i < k; ++i) {
         int id = rnd() % (all_prods.size() - priced) + priced;
-        int weight = rnd() % 90 + 10;
+        int weight = rnd() % 30 + 10;
         pr.emplace_back(id, weight);
     }
     q->setProds(pr);

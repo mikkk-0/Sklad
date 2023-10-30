@@ -21,8 +21,8 @@ model::model(QWidget *parent, std::vector<Product*>* prods, std::vector<std::str
 
 
 
-    for(int i = 0; i < prods->size(); ++i) {
-        CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget, prods->at(i), false);
+    for(int i = 0; i < st->getProds().size(); ++i) {
+        CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget, st->getProds()[i], false);
     }
 
     for(int i = 0; i < prods->size(); ++i) {
@@ -45,6 +45,16 @@ void model::next_day() {
     ui->listWidget_4->clear();
     for(int i = 0; i < st->getShpmnts().size(); ++i){
         clwi_4* item1 = new clwi_4(ui->listWidget_4, st->getShpmnts()[i]);
+    }
+    ui->listWidget_2->clear();
+    for (int i = 0; i < st->getToday_qrs().size(); ++i) {
+        QString name = QString::fromStdString(st->getToday_qrs()[i]->getS_pt()->getName());
+        ui->listWidget_2->addItem(name);
+    }
+    ui->textEdit->clear();
+    ui->listWidget->clear();
+    for(int i = 0; i < st->getProds().size(); ++i) {
+        CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget, st->getProds()[i], false);
     }
 }
 
@@ -85,7 +95,27 @@ void model::show_details(QListWidgetItem* item)
 
 void model::updateTextEdit(QListWidgetItem* item) {
     if (item) {
-        QString itemText = item->text();
+        int id = 0;
+        for (int i = 0; i < ui->listWidget_2->count(); ++i) {
+            if (ui->listWidget_2->item(i) == item) {
+                id = i;
+                break;
+            }
+        }
+        Query* query = st->getToday_qrs()[id];
+        Query* q_reply = st->getToday_qrs_reply()[id];
+        QString itemText = QString::fromStdString("Заказ от " + query->getS_pt()->getName());
+        for (int i = 0; i < query->getProds().size(); ++i) {
+            itemText += "\n";
+            itemText += QString::fromStdString(st->getInfo_products()[id][i].first);
+            itemText += ":\nЗапрошено: ";
+            itemText += QString::number(query->at(i).second);
+            itemText += " кг\nОтгружено: ";
+            itemText += QString::number(q_reply->at(i).second);
+            itemText += " (";
+            itemText += QString::number(q_reply->at(i).second * st->getInfo_products()[id][i].second);
+            itemText += " кг)";
+        }
         ui->textEdit->setPlainText(itemText);
     }
 }
