@@ -15,6 +15,11 @@ public:
     void orderProducts();
     void orderShipments();
 
+    std::vector<Selling_Point *> getS_pts() const;
+    std::vector<Product *> getProds() const;
+    std::vector<Query *> getToday_qrs() const;
+    std::vector<Shipment *> getShpmnts() const;
+
 private:
     std::vector<Selling_Point*> s_pts;
     std::vector<Product*> prods;
