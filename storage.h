@@ -34,7 +34,7 @@ private:
     std::vector<Shipment*> shpmnts;
     std::vector<std::vector<std::pair<std::string, double>>> info_products;
 
-    int shipment_index;
+    int shipment_index = 0;
 };
 
 #endif // STORAGE_H

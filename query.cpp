@@ -43,8 +43,19 @@ Query *generate_query(std::vector<Product *> all_prods)
     while (sz < all_prods.size() && all_prods[sz]->getTime_limit() != 0) sz++;
     int priced = 0;
     while (priced < sz && all_prods[priced]->getPercent() != 0) priced++;
-    int k = rnd() % (sz / 2) + 2;
     std::vector<std::pair<int, double>> pr;
+    if (sz == 0) {
+        q->setProds(pr);
+        return q;
+    }
+    if (sz == 1) {
+        int id = 0;
+        int weight = rnd() % 90 + 10;
+        pr.emplace_back(id, weight);
+        q->setProds(pr);
+        return q;
+    }
+    int k = rnd() % (sz / 2) + 2;
     for (int i = 0; i < std::min((k + 2) / 2, priced); ++i) {
         int id = rnd() % priced;
         int weight = rnd() % 90 + 10;

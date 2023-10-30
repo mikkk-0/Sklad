@@ -42,6 +42,7 @@ model::model(QWidget *parent, std::vector<Product*>* prods, std::vector<std::str
 
 void model::next_day() {
     st->newDay();
+    ui->listWidget_4->clear();
     for(int i = 0; i < st->getShpmnts().size(); ++i){
         clwi_4* item1 = new clwi_4(ui->listWidget_4, st->getShpmnts()[i]);
     }

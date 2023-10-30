@@ -6,11 +6,16 @@ Storage::Storage()
     this->prods = std::vector<Product*>();
     this->s_pts = std::vector<Selling_Point*>();
     this->today_qrs = std::vector<Query*>();
-    shipment_index = 1;
+    this->shipment_index = 1;
 }
 
 Storage::Storage(std::vector<Product *> * products,  std::vector<std::string> names)
 {
+    this->shpmnts = std::vector<Shipment*>();
+    this->prods = std::vector<Product*>();
+    this->s_pts = std::vector<Selling_Point*>();
+    this->today_qrs = std::vector<Query*>();
+    this->shipment_index = 1;
     this->prods.clear();
     for (int i = 0; i < products->size(); ++i) {
         prods.emplace_back(products->at(i)->copy());
