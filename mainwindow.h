@@ -14,6 +14,7 @@
 #include <QErrorMessage>
 #include <QPalette>
 #include "product.h"
+#include "query.h"
 #include <model.h>
 #include <QTextEdit>
 
