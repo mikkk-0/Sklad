@@ -2,7 +2,10 @@
 
 Storage::Storage()
 {
-
+    this->shpmnts = std::vector<Shipment*>();
+    this->prods = std::vector<Product*>();
+    this->s_pts = std::vector<Selling_Point*>();
+    this->today_qrs = std::vector<Query*>();
 }
 
 void Storage::processShipments()
@@ -51,4 +54,24 @@ void Storage::orderShipments()
     std::sort(this->shpmnts.begin(), this->shpmnts.end(), [&](Shipment* &a, Shipment* &b) {
         return a->getLeft_days() < b->getLeft_days();
     });
+}
+
+std::vector<Selling_Point *> Storage::getS_pts() const
+{
+    return s_pts;
+}
+
+std::vector<Product *> Storage::getProds() const
+{
+    return prods;
+}
+
+std::vector<Query *> Storage::getToday_qrs() const
+{
+    return today_qrs;
+}
+
+std::vector<Shipment *> Storage::getShpmnts() const
+{
+    return shpmnts;
 }

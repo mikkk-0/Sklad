@@ -12,6 +12,7 @@
 #include <QMessageBox>
 #include <QListWidgetItem>
 #include <QErrorMessage>
+#include <QCheckBox>
 #include "product.h"
 #include "storage.h"
 #include "shipment.h"

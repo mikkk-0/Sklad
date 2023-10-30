@@ -92,21 +92,14 @@ void CustomListWidgetItem::strikeoutText(QLayout* mainLayout) {
     }
 }
 
-bool CustomListWidgetItem::isChecked() const
-{
-    return checked;
-}
-
 void CustomListWidgetItem::onCheckBoxStateChanged(int state)
 {
     if (state == Qt::Checked)
     {
         //действия, когда флажок зелёный
-        this->checked = true;
     }
     else
     {
-        this->checked = false;
         //действия, когда флажок снят
     }
 }

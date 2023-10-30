@@ -10,9 +10,6 @@ public:
     void onCheckBoxStateChanged(int state);
     void colorLabelsRed(QLayout* layout);
     void strikeoutText(QLayout* layout);
-    bool isChecked() const;
-private:
-    bool checked;
 };
 
 #endif // CUSTOMWIDGET_H

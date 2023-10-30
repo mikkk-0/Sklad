@@ -22,7 +22,7 @@ double Product::getPercent() const
 void Product::setPercent(double newPercent)
 {
     percent = newPercent;
-    this->price *= 1 + double(percent / 100.0);
+    this->price *= 1 - double(percent / 100.0);
 }
 
 int Product::getTime_limit() const
