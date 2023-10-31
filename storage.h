@@ -13,7 +13,7 @@ public:
     void processShipments();
     void processProducts();
     void generateQueries();
-    void addShipment(Shipment* shipment);
+    int addShipment(Shipment* shipment);
     void orderProducts();
     void orderShipments();
     void newDay();

@@ -32,6 +32,16 @@ int Storage::nextShipment() {
     return shipment_index++;
 }
 
+void add(Product* product, std::vector<Product*>& prods) {
+    for (auto& p : prods) {
+        if (p->getId() == product->getId() && p->getTime_limit() == product->getTime_limit() && p->getPercent() == product->getPercent()) {
+            p->setCount(p->getCount() + product->getCount());
+            return;
+        }
+    }
+    prods.emplace_back(product);
+}
+
 void Storage::processShipments()
 {
     for (int i = 0; i < this->shpmnts.size(); ++i) {
@@ -39,7 +49,7 @@ void Storage::processShipments()
         shp->decLeftDays();
         if (shp->getLeft_days() == 0) {
             for (auto& p : shp->getProducts()) {
-                this->prods.emplace_back(p->copy());
+                add(p, this->prods);
                 delete p;
             }
             std::swap(this->shpmnts[i], this->shpmnts.back());
@@ -89,12 +99,14 @@ void Storage::generateQueries()
     }
 }
 
-void Storage::addShipment(Shipment *shipment)
+int Storage::addShipment(Shipment *shipment)
 {
     shipment->setId(nextShipment());
+    int id = shipment->getId();
     this->shpmnts.push_back(shipment);
     orderShipments();
 }
+return id;
 
 void Storage::orderProducts()
 {

@@ -162,9 +162,8 @@ void model::on_create_shipment_clicked()
     if (need_prods.empty())
         return;
     int days = rnd() % 4 + 1;
-    this->st->addShipment(generateShipment(need_prods, days));
+    int id = this->st->addShipment(generateShipment(need_prods, days));
 
-    int id = st->getShpmnts().back()->getId();
     QString itemText =
               QString::fromStdString("Создан запрос в фирму-поставщик #" + std::to_string(id));
     QDialog* detailsDialog = new QDialog(this);

@@ -170,6 +170,9 @@ void MainWindow::on_start_clicked() {
         for (int i = 0; i < ui->listWidget_2->count(); ++i) {
             names.emplace_back(ui->listWidget_2->item(i)->text().toStdString());
         }
+        for (int i = 0; i < this->prods->size(); ++i) {
+            this->prods->at(i)->setId(i);
+        }
         model_ = new model(nullptr, this->prods, names);
         model_->setWindowTitle("Система управления");
         model_->show();

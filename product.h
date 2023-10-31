@@ -23,6 +23,10 @@ public:
 
     Product* copy();
 
+    int getId() const;
+
+    void setId(int newId);
+
 private:
     double price;
     double percent;
@@ -30,6 +34,7 @@ private:
     int count;
     std::string name;
     double weight_per_pack;
+    int id;
 };
 
 #endif // PRODUCT_H

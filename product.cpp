@@ -75,3 +75,13 @@ Product *Product::copy()
     *product = *this;
     return product;
 }
+
+int Product::getId() const
+{
+    return id;
+}
+
+void Product::setId(int newId)
+{
+    id = newId;
+}
