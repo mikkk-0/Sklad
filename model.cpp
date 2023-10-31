@@ -155,12 +155,26 @@ void model::on_create_shipment_clicked()
         auto layout = ui->listWidget_3->itemWidget(item)->layout()->itemAt(1)->layout();
         auto checkbox = qobject_cast<QCheckBox*>(layout->itemAt(6)->widget());
         if (checkbox->isChecked()) {
-            need_prods.emplace_back(this->prods->at(i));
+            need_prods.emplace_back(this->prods->at(i)->copy());
             checkbox->setCheckState(Qt::Unchecked);
         }
     }
+    if (need_prods.empty())
+        return;
     int days = rnd() % 4 + 1;
     this->st->addShipment(generateShipment(need_prods, days));
+
+    int id = st->getShpmnts().back()->getId();
+    QString itemText =
+              QString::fromStdString("Создан запрос в фирму-поставщик #" + std::to_string(id));
+    QDialog* detailsDialog = new QDialog(this);
+    detailsDialog->setWindowTitle("Новый запрос");
+    QLabel* detailsLabel = new QLabel(itemText);
+    QVBoxLayout* layout = new QVBoxLayout;
+    layout->addWidget(detailsLabel);
+    detailsDialog->setLayout(layout);
+    detailsDialog->exec();
+
     this->st->orderShipments();
 
     ui->listWidget_4->clear();

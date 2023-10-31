@@ -59,8 +59,9 @@ void Storage::generateQueries()
     this->today_qrs_reply.clear();
     this->info_products.clear();
     for (int i = 0; i < c; ++i) {
-        Selling_Point* pt = this->s_pts[rnd() % c];
         Query* query = generate_query(this->getProds());
+        if (query->getProds().empty()) break;
+        Selling_Point* pt = this->s_pts[rnd() % c];
         query->setS_pt(pt);
         std::vector<std::pair<int, double>> reply_vec;
         auto que = query->getProds();
@@ -81,6 +82,7 @@ void Storage::generateQueries()
                 std::swap(prods[i], prods.back());
                 delete prods.back();
                 prods.pop_back();
+                i--;
             }
         }
         orderProducts();

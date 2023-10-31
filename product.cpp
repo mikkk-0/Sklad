@@ -56,7 +56,7 @@ void Product::setCount(int newCount)
 }
 
 void Product::decTimeLimit() {
-    count--;
+    time_limit--;
 }
 
 double Product::getWeight_per_pack() const
