@@ -105,8 +105,10 @@ int Storage::addShipment(Shipment *shipment)
     int id = shipment->getId();
     this->shpmnts.push_back(shipment);
     orderShipments();
-}
+
 return id;
+
+}
 
 void Storage::orderProducts()
 {

@@ -56,6 +56,8 @@ void model::next_day() {
     for(int i = 0; i < st->getProds().size(); ++i) {
         CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget, st->getProds()[i], false);
     }
+
+
 }
 
 model::~model()
@@ -138,11 +140,16 @@ void model::perc(QListWidgetItem* item)
         p->setPercent(newValue);
         st->orderProducts();
         ui->listWidget->clear();
-        for(int i = 0; i < st->getProds().size(); ++i) {
-            p = st->getProds().at(i);
+        for (int i = 0; i < st->getProds().size(); ++i) {
+            Product* p = st->getProds().at(i);
             CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget, p, false);
-            if (p->getTime_limit() == 0) item1->strikeoutText();
-            else if (p->getPercent() == 0 && p->getTime_limit() < 3) item1->colorLabelsRed();
+            if (p->getTime_limit() == 0) {
+                item1->strikeoutText();
+                ui->listWidget->update();
+            } else if (p->getPercent() == 0 && p->getTime_limit() < 3) {
+                item1->colorLabelsRed();
+                ui->listWidget->update();
+            }
         }
     }
 }
