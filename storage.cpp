@@ -101,6 +101,11 @@ void Storage::orderProducts()
     std::sort(this->prods.begin(), this->prods.end(), [&](Product* &a, Product* &b) {
         if (b->getTime_limit() == 0) return true;
         if (a->getTime_limit() == 0) return false;
+        if (a->getTime_limit() == b->getTime_limit()) {
+            if (a->getPercent() == 0) return true;
+            if (b->getPercent() == 0) return false;
+            return a->getPrice() < b->getPrice();
+        }
         return a->getTime_limit() < b->getTime_limit();
     });
 }
