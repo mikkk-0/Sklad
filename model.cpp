@@ -14,6 +14,7 @@ model::model(QWidget *parent, std::vector<Product*>* prods, std::vector<std::str
     this->prods = prods;
     st = new Storage(prods, names);
     this->n  = N;
+    n++;
 
     ui->tabWidget->setTabText(1, "Список товаров на складе");
     ui->tabWidget->setTabText(2, "Заказы в фирму-поставщик");
@@ -56,7 +57,7 @@ void model::next_day() {
     --n;
     if(n == 0){
         QString itemText =
-                  "";
+                  QString::fromStdString("Итоговый доход: ") + QString::number(st->getTotal());
 
         QDialog* detailsDialog = new QDialog(this);
         detailsDialog->setWindowTitle("Характеристики элемента");
@@ -130,12 +131,11 @@ void model::perc(QListWidgetItem* item)
             }
         }
         Product* p = st->getProds().at(id);
-        if (p->getPercent() != 0 || p->getSeen()) {
+        if (p->getPercent() != 0) {
             return;
         }
         int newValue = QInputDialog::getDouble(this, "Ввод процента уценки", "Введите новый процент:", 15, 1, 100);
         p->setPercent(newValue);
-        p->makeSeen();
         st->orderProducts();
         redraw_products();
     }

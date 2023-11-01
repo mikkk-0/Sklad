@@ -26,6 +26,7 @@ public:
 
     std::vector<Query *> getToday_qrs_reply() const;
     std::vector<std::vector<std::pair<std::string, double> > > getInfo_products() const;
+    double getTotal() const;
 
 private:
     std::vector<Selling_Point*> s_pts;

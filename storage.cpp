@@ -50,13 +50,11 @@ void Storage::processShipments()
         auto shp = this->shpmnts[i];
         shp->decLeftDays();
         if (shp->getLeft_days() == 0) {
-            double sum = 0;
             for (auto& p : shp->getProducts()) {
+                p->setTime_limit(p->getTime_limit() + 1);
                 add(p, this->prods);
-                sum += p->getPrice() * p->getCount();
                 delete p;
             }
-            total -= sum * (1 - (shp->getPercent() / 100.0));
             std::swap(this->shpmnts[i], this->shpmnts.back());
             this->shpmnts.pop_back();
             delete shp;
@@ -69,8 +67,8 @@ void Storage::processShipments()
 
 void Storage::generateQueries()
 {
-    int c = rnd() % this->s_pts.size();
-//    int c = 0;
+//    int c = rnd() % this->s_pts.size();
+    int c = 0;
     this->today_qrs.clear();
     this->today_qrs_reply.clear();
     this->info_products.clear();
@@ -83,10 +81,12 @@ void Storage::generateQueries()
         auto que = query->getProds();
         info_products.emplace_back();
         for (auto& [ind, need] : que) {
-            int give = std::min(this->prods[ind]->getCount(), (int)ceil((double)need / prods[ind]->getWeight_per_pack()));
-            prods[ind]->setCount(prods[ind]->getCount() - give);
+            Product* prod = prods[ind];
+            int give = std::min(prod->getCount(), (int)ceil((double)need / prod->getWeight_per_pack()));
+            prod->setCount(prod->getCount() - give);
             reply_vec.emplace_back(ind, give);
-            info_products.back().emplace_back(prods[ind]->getName(), prods[ind]->getWeight_per_pack());
+            info_products.back().emplace_back(prod->getName(), prod->getWeight_per_pack());
+            total += give * prod->getPrice();
         }
         Query* qr = new Query;
         qr->setS_pt(pt);
@@ -110,10 +110,14 @@ int Storage::addShipment(Shipment *shipment)
     shipment->setId(nextShipment());
     int id = shipment->getId();
     this->shpmnts.push_back(shipment);
+    double sum = 0;
+    for (auto& p : shipment->getProducts()) {
+        sum += p->getPrice() * p->getCount();
+    }
+    total -= sum * (1 - (shipment->getPercent() / 100.0));
     orderShipments();
 
-return id;
-
+    return id;
 }
 
 void Storage::orderProducts()
@@ -146,7 +150,9 @@ void Storage::newDay()
 
 void Storage::processProducts() {
     for (auto& p : prods) {
-        if (p->getTime_limit() == 0) continue;
+        if (p->getTime_limit() == 0) {
+            continue;
+        }
         p->decTimeLimit();
     }
     orderProducts();
@@ -180,4 +186,8 @@ std::vector<Query *> Storage::getToday_qrs_reply() const
 std::vector<std::vector<std::pair<std::string, double> > > Storage::getInfo_products() const
 {
     return info_products;
+}
+
+double Storage::getTotal() const {
+    return total;
 }
