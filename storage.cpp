@@ -7,6 +7,7 @@ Storage::Storage()
     this->s_pts = std::vector<Selling_Point*>();
     this->today_qrs = std::vector<Query*>();
     this->shipment_index = 1;
+    total = 0;
 }
 
 Storage::Storage(std::vector<Product *> * products,  std::vector<std::string> names)
@@ -16,6 +17,7 @@ Storage::Storage(std::vector<Product *> * products,  std::vector<std::string> na
     this->s_pts = std::vector<Selling_Point*>();
     this->today_qrs = std::vector<Query*>();
     this->shipment_index = 1;
+    total = 0;
     this->prods.clear();
     for (int i = 0; i < products->size(); ++i) {
         prods.emplace_back(products->at(i)->copy());
@@ -48,10 +50,13 @@ void Storage::processShipments()
         auto shp = this->shpmnts[i];
         shp->decLeftDays();
         if (shp->getLeft_days() == 0) {
+            double sum = 0;
             for (auto& p : shp->getProducts()) {
                 add(p, this->prods);
+                sum += p->getPrice() * p->getCount();
                 delete p;
             }
+            total -= sum * (1 - (shp->getPercent() / 100.0));
             std::swap(this->shpmnts[i], this->shpmnts.back());
             this->shpmnts.pop_back();
             delete shp;
@@ -65,6 +70,7 @@ void Storage::processShipments()
 void Storage::generateQueries()
 {
     int c = rnd() % this->s_pts.size();
+//    int c = 0;
     this->today_qrs.clear();
     this->today_qrs_reply.clear();
     this->info_products.clear();

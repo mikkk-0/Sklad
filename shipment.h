@@ -16,10 +16,14 @@ public:
     int getId() const;
     void setId(int newId);
 
+    int getPercent() const;
+    void setPercent(int newPercent);
+
 private:
     int left_days;
     std::vector<Product*> products;
     int id;
+    int percent;
 };
 
 Shipment* generateShipment(std::vector<Product*> &products, int days);

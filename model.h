@@ -41,10 +41,12 @@ private slots:
     void on_nextDay_clicked();
 
 private:
+    void redraw_products();
     Ui::model *ui;
     std::vector<Product*>* prods;
     Storage* st;
     void next_day();
+    int n;
 };
 
 #endif // MODEL_H

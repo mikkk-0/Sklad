@@ -85,3 +85,13 @@ void Product::setId(int newId)
 {
     id = newId;
 }
+
+bool Product::getSeen() const
+{
+    return seen;
+}
+
+void Product::makeSeen()
+{
+    seen = true;
+}

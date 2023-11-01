@@ -37,6 +37,22 @@ model::model(QWidget *parent, std::vector<Product*>* prods, std::vector<std::str
     connect(ui->listWidget_4, &QListWidget::itemDoubleClicked, this, &model::show_details);
 }
 
+
+void model::redraw_products()
+{
+    ui->listWidget->clear();
+    for(int i = 0; i < st->getProds().size(); ++i) {
+        CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget, st->getProds()[i], false);
+        if (st->getProds()[i]->getTime_limit() == 0) {
+            item1->strikeoutText();
+            ui->listWidget->update();
+        } else if (st->getProds()[i]->getPercent() == 0 && st->getProds()[i]->getTime_limit() <= 3) {
+            item1->colorLabelsRed();
+            ui->listWidget->update();
+        }
+    }
+}
+
 void model::next_day() {
     st->newDay();
     --n;
@@ -69,10 +85,8 @@ void model::next_day() {
         ui->listWidget_2->addItem(name);
     }
     ui->textEdit->clear();
-    ui->listWidget->clear();
-    for(int i = 0; i < st->getProds().size(); ++i) {
-        CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget, st->getProds()[i], false);
-    }
+
+    redraw_products();
 
 
 }
@@ -156,11 +170,7 @@ void model::perc(QListWidgetItem* item)
         int newValue = QInputDialog::getDouble(this, "Ввод процента уценки", "Введите новый процент:", 15, 1, 100);
         p->setPercent(newValue);
         st->orderProducts();
-        ui->listWidget->clear();
-        for (int i = 0; i < st->getProds().size(); ++i) {
-            Product* p = st->getProds().at(i);
-            CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget, p, false);
-        }
+        redraw_products();
     }
 }
 

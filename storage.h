@@ -35,6 +35,7 @@ private:
     std::vector<std::vector<std::pair<std::string, double>>> info_products;
 
     int shipment_index = 0;
+    double total = 0;
 };
 
 #endif // STORAGE_H

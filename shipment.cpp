@@ -40,9 +40,20 @@ void Shipment::setId(int newId)
     id = newId;
 }
 
+int Shipment::getPercent() const
+{
+    return percent;
+}
+
+void Shipment::setPercent(int newPercent)
+{
+    percent = newPercent;
+}
+
 Shipment* generateShipment(std::vector<Product*>& products, int days) {
     Shipment* shpmnt = new Shipment;
     shpmnt->setProducts(products);
     shpmnt->setLeft_days(days);
+    shpmnt->setPercent(rnd() % 40 + 10);
     return shpmnt;
 }

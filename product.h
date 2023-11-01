@@ -27,6 +27,9 @@ public:
 
     void setId(int newId);
 
+    bool getSeen() const;
+    void makeSeen();
+
 private:
     double price;
     double percent;
@@ -35,6 +38,7 @@ private:
     std::string name;
     double weight_per_pack;
     int id;
+    bool seen;
 };
 
 #endif // PRODUCT_H
