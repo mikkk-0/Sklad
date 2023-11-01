@@ -70,7 +70,7 @@ void model::next_day() {
         detailsDialog->setLayout(layout);
 
         detailsDialog->exec();
-        delete this;
+        this->destroy();
     }
     ui->listWidget_4->clear();
     for(int i = 0; i < st->getShpmnts().size(); ++i){

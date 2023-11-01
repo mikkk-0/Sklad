@@ -67,8 +67,8 @@ void Storage::processShipments()
 
 void Storage::generateQueries()
 {
-//    int c = rnd() % this->s_pts.size();
-    int c = 0;
+    int c = rnd() % this->s_pts.size();
+//    int c = 0;
     this->today_qrs.clear();
     this->today_qrs_reply.clear();
     this->info_products.clear();
