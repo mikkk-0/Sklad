@@ -177,6 +177,7 @@ void MainWindow::on_start_clicked() {
         model_ = new model(nullptr, this->prods, names, n);
         model_->setWindowTitle("Система управления");
         model_->show();
+        this->destroy();
     }
 }
 
