@@ -39,7 +39,7 @@ void add(Product* product, std::vector<Product*>& prods) {
             return;
         }
     }
-    prods.emplace_back(product);
+    prods.emplace_back(product->copy());
 }
 
 void Storage::processShipments()
