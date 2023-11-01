@@ -33,8 +33,6 @@ model::model(QWidget *parent, std::vector<Product*>* prods, std::vector<std::str
     connect(ui->listWidget, &QListWidget::itemDoubleClicked, this, &model::perc);
 
     connect(ui->listWidget_2, &QListWidget::itemClicked, this, &model::updateTextEdit);
-
-    connect(ui->listWidget_4, &QListWidget::itemDoubleClicked, this, &model::show_details);
 }
 
 
@@ -58,10 +56,7 @@ void model::next_day() {
     --n;
     if(n == 0){
         QString itemText =
-                  "Наименование: " + QString::fromStdString(p->getName())
-                + "\nСрок годности (дней): " + QString::fromStdString(std::to_string(p->getTime_limit()))
-                + "\nЦена за упаковку (руб): " + QString::fromStdString(std::to_string(p->getPrice()))
-                + "\nВес одной упаковки (кг): " + QString::fromStdString(std::to_string(p->getWeight_per_pack()));
+                  "";
 
         QDialog* detailsDialog = new QDialog(this);
         detailsDialog->setWindowTitle("Характеристики элемента");
@@ -74,6 +69,7 @@ void model::next_day() {
         detailsDialog->setLayout(layout);
 
         detailsDialog->exec();
+        delete this;
     }
     ui->listWidget_4->clear();
     for(int i = 0; i < st->getShpmnts().size(); ++i){
@@ -95,36 +91,6 @@ model::~model()
 {
     delete ui;
 }
-
-void model::show_details(QListWidgetItem* item)
-{
-    int id = 0;
-    for (int i = 0; i < ui->listWidget_4->count(); ++i) {
-        if (ui->listWidget_4->item(i) == item) {
-            id = i;
-            break;
-        }
-    }
-    Product* p = prods->at(id);
-    QString itemText =
-              "Наименование: " + QString::fromStdString(p->getName())
-            + "\nСрок годности (дней): " + QString::fromStdString(std::to_string(p->getTime_limit()))
-            + "\nЦена за упаковку (руб): " + QString::fromStdString(std::to_string(p->getPrice()))
-            + "\nВес одной упаковки (кг): " + QString::fromStdString(std::to_string(p->getWeight_per_pack()));
-
-    QDialog* detailsDialog = new QDialog(this);
-    detailsDialog->setWindowTitle("Характеристики элемента");
-
-    QLabel* detailsLabel = new QLabel(itemText);
-
-    QVBoxLayout* layout = new QVBoxLayout;
-    layout->addWidget(detailsLabel);
-
-    detailsDialog->setLayout(layout);
-
-    detailsDialog->exec();
-}
-
 
 void model::updateTextEdit(QListWidgetItem* item) {
     if (item) {
@@ -164,11 +130,12 @@ void model::perc(QListWidgetItem* item)
             }
         }
         Product* p = st->getProds().at(id);
-        if (p->getPercent() != 0) {
+        if (p->getPercent() != 0 || p->getSeen()) {
             return;
         }
         int newValue = QInputDialog::getDouble(this, "Ввод процента уценки", "Введите новый процент:", 15, 1, 100);
         p->setPercent(newValue);
+        p->makeSeen();
         st->orderProducts();
         redraw_products();
     }
