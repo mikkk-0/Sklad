@@ -5,7 +5,7 @@
 
 #include <QMenuBar>
 
-model::model(QWidget *parent, std::vector<Product*>* prods, std::vector<std::string> names) :
+model::model(QWidget *parent, std::vector<Product*>* prods, std::vector<std::string> names, int N) :
     QWidget(parent),
     ui(new Ui::model)
 {
@@ -13,6 +13,7 @@ model::model(QWidget *parent, std::vector<Product*>* prods, std::vector<std::str
 
     this->prods = prods;
     st = new Storage(prods, names);
+    this->n  = N;
 
     ui->tabWidget->setTabText(1, "Список товаров на складе");
     ui->tabWidget->setTabText(2, "Заказы в фирму-поставщик");
@@ -29,19 +30,35 @@ model::model(QWidget *parent, std::vector<Product*>* prods, std::vector<std::str
         CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget_3, prods->at(i), true);
     }
 
-
-
     connect(ui->listWidget, &QListWidget::itemDoubleClicked, this, &model::perc);
 
     connect(ui->listWidget_2, &QListWidget::itemClicked, this, &model::updateTextEdit);
 
     connect(ui->listWidget_4, &QListWidget::itemDoubleClicked, this, &model::show_details);
-
-
 }
 
 void model::next_day() {
     st->newDay();
+    --n;
+    if(n == 0){
+        QString itemText =
+                  "Наименование: " + QString::fromStdString(p->getName())
+                + "\nСрок годности (дней): " + QString::fromStdString(std::to_string(p->getTime_limit()))
+                + "\nЦена за упаковку (руб): " + QString::fromStdString(std::to_string(p->getPrice()))
+                + "\nВес одной упаковки (кг): " + QString::fromStdString(std::to_string(p->getWeight_per_pack()));
+
+        QDialog* detailsDialog = new QDialog(this);
+        detailsDialog->setWindowTitle("Характеристики элемента");
+
+        QLabel* detailsLabel = new QLabel(itemText);
+
+        QVBoxLayout* layout = new QVBoxLayout;
+        layout->addWidget(detailsLabel);
+
+        detailsDialog->setLayout(layout);
+
+        detailsDialog->exec();
+    }
     ui->listWidget_4->clear();
     for(int i = 0; i < st->getShpmnts().size(); ++i){
         clwi_4* item1 = new clwi_4(ui->listWidget_4, st->getShpmnts()[i]);
@@ -143,13 +160,6 @@ void model::perc(QListWidgetItem* item)
         for (int i = 0; i < st->getProds().size(); ++i) {
             Product* p = st->getProds().at(i);
             CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget, p, false);
-            if (p->getTime_limit() == 0) {
-                item1->strikeoutText();
-                ui->listWidget->update();
-            } else if (p->getPercent() == 0 && p->getTime_limit() < 3) {
-                item1->colorLabelsRed();
-                ui->listWidget->update();
-            }
         }
     }
 }

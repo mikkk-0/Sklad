@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -23,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->spinBox->setMinimum(10);
     ui->spinBox->setMaximum(30);
     prods = new std::vector<Product*>;
+
 }
 
 MainWindow::~MainWindow()
@@ -173,7 +173,8 @@ void MainWindow::on_start_clicked() {
         for (int i = 0; i < this->prods->size(); ++i) {
             this->prods->at(i)->setId(i);
         }
-        model_ = new model(nullptr, this->prods, names);
+        int n = ui->spinBox->value();
+        model_ = new model(nullptr, this->prods, names, n);
         model_->setWindowTitle("Система управления");
         model_->show();
     }

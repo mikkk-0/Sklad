@@ -27,7 +27,7 @@ class model : public QWidget
     Q_OBJECT
 
 public:
-    model(QWidget*, std::vector<Product*>*, std::vector<std::string>);
+    model(QWidget*, std::vector<Product*>*, std::vector<std::string>, int);
     ~model();
 
 public slots:
