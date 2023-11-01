@@ -7,12 +7,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-//    ui->listWidget->addItem("Номер: 1");
-//    ui->listWidget->addItem("Номер: 2");
-//    ui->listWidget->addItem("Номер: 3");
-//    ui->listWidget->addItem("Номер: 4");
-
-
     ui->listWidget_2->addItem("Торговая точка номер 1");
     ui->listWidget_2->addItem("Торговая точка номер 2");
     ui->listWidget_2->addItem("Торговая точка номер 3");
@@ -72,8 +66,10 @@ Product* getProduct(QWidget* parent) {
     p->setPrice(price);
     double weight = QInputDialog::getDouble(parent, "Добавление продукта", "Введите вес 1 упаковку продукта (кг):", .5, .1);
     p->setWeight_per_pack(weight);
-    p->setPercent(0);
-    p->setCount(30);
+    double percent = QInputDialog::getDouble(parent, "Добавление продукта", "Введите процент ценки пролукта", 15, 1, 100);
+    p->setPercent(percent);
+    int counter_strike_global_2 = QInputDialog::getDouble(parent, "Добавление продукта", "Введите количество пачек", 30, 0, 40);
+    p->setCount(counter_strike_global_2);
     return p;
 }
 
