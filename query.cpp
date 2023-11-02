@@ -42,7 +42,7 @@ Query *generate_query(std::vector<Product *> all_prods)
     int sz = 0;
     while (sz < all_prods.size() && all_prods[sz]->getTime_limit() != 0) sz++;
     int priced = 0;
-    while (priced < sz && all_prods[priced]->getPercent() != 0) priced++;
+    while (priced < sz && all_prods[priced]->getPercent() == 0) priced++;
     std::vector<std::pair<int, double>> pr;
     if (sz == 0) {
         q->setProds(pr);
