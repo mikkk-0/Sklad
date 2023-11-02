@@ -58,22 +58,22 @@ Product* getProduct(QWidget* parent) {
     QString newText;
     bool ok;
     newText = QInputDialog::getText(parent, "Добавление продукта", "Введите название продукта:", QLineEdit::Normal, "", &ok);
-    if (!ok) return nullptr;
+    if (!ok || newText.isEmpty()) { delete p; return nullptr; }
     p->setName(newText.toStdString());
     int time_limit = QInputDialog::getInt(parent, "Добавление продукта", "Введите срок годности продукта:", 10, 4, 100, 1, &ok);
-    if (!ok) return nullptr;
+    if (!ok)  { delete p; return nullptr; }
     p->setTime_limit(time_limit);
     int price = QInputDialog::getInt(parent, "Добавление продукта", "Введите цену за 1 упаковку продукта (руб):", 20, 1, 1000000, 1, &ok);
-    if (!ok) return nullptr;
+    if (!ok)  { delete p; return nullptr; }
     p->setPrice(price);
     double weight = QInputDialog::getDouble(parent, "Добавление продукта", "Введите вес 1 упаковку продукта (кг):", .5, .1, 300, 1, &ok);
-    if (!ok) return nullptr;
+    if (!ok)  { delete p; return nullptr; }
     p->setWeight_per_pack(weight);
     double percent = QInputDialog::getDouble(parent, "Добавление продукта", "Введите процент уценки продукта", 15, 1, 100, 1, &ok);
-    if (!ok) return nullptr;
+    if (!ok)  { delete p; return nullptr; }
     p->setPercent(percent);
     int counter_strike_global_2 = QInputDialog::getInt(parent, "Добавление продукта", "Введите количество пачек", 10, 0, 40, 1, &ok);
-    if (!ok) return nullptr;
+    if (!ok)  { delete p; return nullptr; }
     p->setCount_ship(counter_strike_global_2);
 
     p->setCount(30);
@@ -92,7 +92,7 @@ void MainWindow::on_edit_clicked()
             }
         }
         Product* newProduct = getProduct(this);
-        if (newProduct) {
+        if (newProduct != nullptr) {
             delete prods->at(id);
             prods->at(id) = newProduct;
             QString newText = QString::fromStdString(newProduct->getName());
@@ -104,7 +104,7 @@ void MainWindow::on_edit_clicked()
 void MainWindow::on_add_clicked()
 {
     Product* product = getProduct(this);
-    if (product) {
+    if (product != nullptr) {
         prods->emplace_back(product);
         QString newText = QString::fromStdString(product->getName());
         ui->listWidget->addItem(newText);
