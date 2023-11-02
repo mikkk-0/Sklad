@@ -15,6 +15,7 @@ public:
     std::string getName() const;
     void setName(const std::string &newName);
     void decTimeLimit();
+    void applyPercent();
 
     int getCount() const;
     void setCount(int newCount);
@@ -30,6 +31,9 @@ public:
     bool getSeen() const;
     void makeSeen();
 
+    int getCount_ship() const;
+    void setCount_ship(int newCount_ship);
+
 private:
     double price;
     double percent;
@@ -38,6 +42,7 @@ private:
     std::string name;
     double weight_per_pack;
     int id;
+    int count_ship;
     bool seen;
 };
 

@@ -35,8 +35,6 @@ public slots:
     void updateTextEdit(QListWidgetItem* item);
 
 private slots:
-    void on_create_shipment_clicked();
-
     void on_nextDay_clicked();
 
 private:

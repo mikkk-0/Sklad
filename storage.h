@@ -11,12 +11,12 @@ public:
     Storage();
     Storage(std::vector<Product*>*, std::vector<std::string>);
     void processShipments();
-    void processProducts();
+    void processProducts(std::vector<Product*>&);
     void generateQueries();
     int addShipment(Shipment* shipment);
     void orderProducts();
     void orderShipments();
-    void newDay();
+    void newDay(std::vector<Product*>&);
     int nextShipment();
 
     std::vector<Selling_Point *> getS_pts() const;

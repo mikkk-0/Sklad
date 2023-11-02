@@ -17,18 +17,13 @@ model::model(QWidget *parent, std::vector<Product*>* prods, std::vector<std::str
     n++;
 
     ui->tabWidget->setTabText(1, "Список товаров на складе");
-    ui->tabWidget->setTabText(2, "Заказы в фирму-поставщик");
-    ui->tabWidget->setTabText(3, "Список запросов на поставку");
+    ui->tabWidget->setTabText(2, "Список запросов на поставку");
     ui->tabWidget->setTabText(0, "Список заказов");
 
 
 
     for(int i = 0; i < st->getProds().size(); ++i) {
         CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget, st->getProds()[i], false);
-    }
-
-    for(int i = 0; i < prods->size(); ++i) {
-        CustomListWidgetItem* item1 = new CustomListWidgetItem(ui->listWidget_3, prods->at(i), true);
     }
 
     connect(ui->listWidget, &QListWidget::itemDoubleClicked, this, &model::perc);
@@ -45,7 +40,7 @@ void model::redraw_products()
         if (st->getProds()[i]->getTime_limit() == 0) {
             item1->strikeoutText();
             ui->listWidget->update();
-        } else if (st->getProds()[i]->getPercent() == 0 && st->getProds()[i]->getTime_limit() <= 3) {
+        } else if (st->getProds()[i]->getTime_limit() <= 3) {
             item1->colorLabelsRed();
             ui->listWidget->update();
         }
@@ -53,7 +48,7 @@ void model::redraw_products()
 }
 
 void model::next_day() {
-    st->newDay();
+    st->newDay(*this->prods);
     --n;
     if(n == 0){
         QString itemText =
@@ -138,41 +133,6 @@ void model::perc(QListWidgetItem* item)
         p->setPercent(newValue);
         st->orderProducts();
         redraw_products();
-    }
-}
-
-void model::on_create_shipment_clicked()
-{
-    std::vector<Product*> need_prods;
-    for (int i = 0; i < ui->listWidget_3->count(); ++i) {
-        auto item = ui->listWidget_3->item(i);
-        auto layout = ui->listWidget_3->itemWidget(item)->layout()->itemAt(1)->layout();
-        auto checkbox = qobject_cast<QCheckBox*>(layout->itemAt(6)->widget());
-        if (checkbox->isChecked()) {
-            need_prods.emplace_back(this->prods->at(i)->copy());
-            checkbox->setCheckState(Qt::Unchecked);
-        }
-    }
-    if (need_prods.empty())
-        return;
-    int days = rnd() % 4 + 1;
-    int id = this->st->addShipment(generateShipment(need_prods, days));
-
-    QString itemText =
-              QString::fromStdString("Создан запрос в фирму-поставщик #" + std::to_string(id));
-    QDialog* detailsDialog = new QDialog(this);
-    detailsDialog->setWindowTitle("Новый запрос");
-    QLabel* detailsLabel = new QLabel(itemText);
-    QVBoxLayout* layout = new QVBoxLayout;
-    layout->addWidget(detailsLabel);
-    detailsDialog->setLayout(layout);
-    detailsDialog->exec();
-
-    this->st->orderShipments();
-
-    ui->listWidget_4->clear();
-    for(int i = 0; i < st->getShpmnts().size(); ++i){
-        clwi_4* item1 = new clwi_4(ui->listWidget_4, st->getShpmnts()[i]);
     }
 }
 

@@ -22,7 +22,7 @@ double Product::getPercent() const
 void Product::setPercent(double newPercent)
 {
     percent = newPercent;
-    this->price *= 1 - double(percent / 100.0);
+
 }
 
 int Product::getTime_limit() const
@@ -57,6 +57,12 @@ void Product::setCount(int newCount)
 
 void Product::decTimeLimit() {
     time_limit--;
+}
+
+void Product::applyPercent()
+{
+    this->price *= 1 - double(percent / 100.0);
+    setPercent(0);
 }
 
 double Product::getWeight_per_pack() const
@@ -94,4 +100,14 @@ bool Product::getSeen() const
 void Product::makeSeen()
 {
     seen = true;
+}
+
+int Product::getCount_ship() const
+{
+    return count_ship;
+}
+
+void Product::setCount_ship(int newCount_ship)
+{
+    count_ship = newCount_ship;
 }

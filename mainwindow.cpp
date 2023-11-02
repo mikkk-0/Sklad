@@ -56,20 +56,27 @@ void MainWindow::on_delete_3_clicked()
 Product* getProduct(QWidget* parent) {
     Product* p = new Product;
     QString newText;
-    while (newText.isEmpty()) {
-        newText = QInputDialog::getText(parent, "Добавление продукта", "Введите название продукта:");
-    }
+    bool ok;
+    newText = QInputDialog::getText(parent, "Добавление продукта", "Введите название продукта:", QLineEdit::Normal, "", &ok);
+    if (!ok) return nullptr;
     p->setName(newText.toStdString());
-    int time_limit = QInputDialog::getInt(parent, "Добавление продукта", "Введите срок годности продукта:", 10, 4, 100);
+    int time_limit = QInputDialog::getInt(parent, "Добавление продукта", "Введите срок годности продукта:", 10, 4, 100, 1, &ok);
+    if (!ok) return nullptr;
     p->setTime_limit(time_limit);
-    int price = QInputDialog::getInt(parent, "Добавление продукта", "Введите цену за 1 упаковку продукта (руб):", 20, 1);
+    int price = QInputDialog::getInt(parent, "Добавление продукта", "Введите цену за 1 упаковку продукта (руб):", 20, 1, 1000000, 1, &ok);
+    if (!ok) return nullptr;
     p->setPrice(price);
-    double weight = QInputDialog::getDouble(parent, "Добавление продукта", "Введите вес 1 упаковку продукта (кг):", .5, .1);
+    double weight = QInputDialog::getDouble(parent, "Добавление продукта", "Введите вес 1 упаковку продукта (кг):", .5, .1, 300, 1, &ok);
+    if (!ok) return nullptr;
     p->setWeight_per_pack(weight);
-    double percent = QInputDialog::getDouble(parent, "Добавление продукта", "Введите процент уценки продукта", 15, 1, 100);
+    double percent = QInputDialog::getDouble(parent, "Добавление продукта", "Введите процент уценки продукта", 15, 1, 100, 1, &ok);
+    if (!ok) return nullptr;
     p->setPercent(percent);
-    int counter_strike_global_2 = QInputDialog::getDouble(parent, "Добавление продукта", "Введите количество пачек", 30, 0, 40);
-    p->setCount(counter_strike_global_2);
+    int counter_strike_global_2 = QInputDialog::getInt(parent, "Добавление продукта", "Введите количество пачек", 10, 0, 40, 1, &ok);
+    if (!ok) return nullptr;
+    p->setCount_ship(counter_strike_global_2);
+
+    p->setCount(30);
     return p;
 }
 
@@ -85,19 +92,23 @@ void MainWindow::on_edit_clicked()
             }
         }
         Product* newProduct = getProduct(this);
-        delete prods->at(id);
-        prods->at(id) = newProduct;
-        QString newText = QString::fromStdString(newProduct->getName());
-        selectedItem->setText(newText);
+        if (newProduct) {
+            delete prods->at(id);
+            prods->at(id) = newProduct;
+            QString newText = QString::fromStdString(newProduct->getName());
+            selectedItem->setText(newText);
+        }
     }
 }
 
 void MainWindow::on_add_clicked()
 {
     Product* product = getProduct(this);
-    prods->emplace_back(product);
-    QString newText = QString::fromStdString(product->getName());
-    ui->listWidget->addItem(newText);
+    if (product) {
+        prods->emplace_back(product);
+        QString newText = QString::fromStdString(product->getName());
+        ui->listWidget->addItem(newText);
+    }
 }
 
 void MainWindow::on_edit_2_clicked()
@@ -133,7 +144,11 @@ void MainWindow::show_details(QListWidgetItem* item)
               "Наименование: " + QString::fromStdString(p->getName())
             + "\nСрок годности (дней): " + QString::fromStdString(std::to_string(p->getTime_limit()))
             + "\nЦена за упаковку (руб): " + QString::fromStdString(std::to_string(p->getPrice()))
-            + "\nВес одной упаковки (кг): " + QString::fromStdString(std::to_string(p->getWeight_per_pack()));
+            + "\nВес одной упаковки (кг): " + QString::fromStdString(std::to_string(p->getWeight_per_pack()))
+            + "\nПроцент уценки: " + QString::fromStdString(std::to_string(p->getPercent()))
+            + "\nКритическое количество пачек на складе*: " + QString::fromStdString(std::to_string(p->getCount_ship()))
+            + "\n*Если на складе осталось товара количеством меньше критического"
+            + "\nколичества, автоматически отправляется запрос на поставку данного товара";
 
     QDialog* detailsDialog = new QDialog(this);
     detailsDialog->setWindowTitle("Характеристики элемента");

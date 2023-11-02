@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -74,39 +74,6 @@
          <width>771</width>
          <height>571</height>
         </rect>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QWidget" name="tab_3">
-      <attribute name="title">
-       <string>Страница</string>
-      </attribute>
-      <widget class="QListWidget" name="listWidget_3">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>771</width>
-         <height>500</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="create_shipment">
-       <property name="geometry">
-        <rect>
-         <x>450</x>
-         <y>505</y>
-         <width>311</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>15</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Заказать</string>
        </property>
       </widget>
      </widget>

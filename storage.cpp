@@ -141,21 +141,59 @@ void Storage::orderShipments()
     });
 }
 
-void Storage::newDay()
+void Storage::newDay(std::vector<Product*>& all_prods)
 {
     processShipments();
     generateQueries();
-    processProducts();
+    processProducts(all_prods);
 }
 
-void Storage::processProducts() {
+void Storage::processProducts(std::vector<Product*>& all_prods) {
     for (auto& p : prods) {
         if (p->getTime_limit() == 0) {
             continue;
         }
         p->decTimeLimit();
+        if (p->getTime_limit() <= 3) {
+            p->applyPercent();
+        }
     }
     orderProducts();
+    std::vector<Product*> need;
+    for (auto& pr : all_prods) {
+        int count = 0;
+        for (auto& x : prods) {
+            if (x->getTime_limit() == 0) break;
+            if (x->getId() == pr->getId()) {
+                count += x->getCount();
+            }
+        }
+        if (count < pr->getCount_ship()) {
+            need.emplace_back(pr->copy());
+        }
+    }
+    for (int i = 0; i < need.size(); ++i) {
+        auto x = need[i];
+        bool was = false;
+        for (auto& shp : shpmnts) {
+            for (auto& p : shp->getProducts()) {
+                if (p->getId() == x->getId()) {
+                    was = true;
+                    break;
+                }
+            }
+            if (was) break;
+        }
+        if (was) {
+            std::swap(need[i], need.back());
+            need.pop_back();
+            delete x;
+            i--;
+        }
+    }
+    if (!need.empty()) {
+        this->addShipment(generateShipment(need, rnd() % 4 + 1));
+    }
 }
 
 std::vector<Selling_Point *> Storage::getS_pts() const
